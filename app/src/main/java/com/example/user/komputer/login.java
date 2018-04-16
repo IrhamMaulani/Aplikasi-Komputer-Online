@@ -24,6 +24,6 @@ public class login extends AppCompatActivity {
                 startActivity(utamaIntent);
             }
         });
-
+//s
     }
 }
