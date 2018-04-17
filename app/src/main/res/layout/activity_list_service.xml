@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:orientation="horizontal"
+    >
+
+
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="88dp"
+        android:layout_height="match_parent"
+        android:src="@drawable/gambar_toko_komputer"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_weight="1"
+        android:layout_gravity="center_vertical"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:text="Aneka Komputer"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimaryDark"
+            android:textAllCaps="true"
+            android:id="@+id/namatoko"/>
+
+        <TextView
+            android:id="@+id/waktubuka"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:text="Open Hours : 09:00 - 17:30"
+            android:layout_gravity="top"
+            android:textSize="12dp"
+            android:ellipsize="end"
+            android:layout_weight="1"
+             />
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:text="Jl.Saka Permain No 20,Banjarmasin Barat"
+            android:layout_gravity="bottom"
+            android:textSize="10dp"
+            android:ellipsize="end"
+            android:layout_weight="1"
+            android:textColor="@color/warnaKabur"
+            android:id="@+id/alamat"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:src="@drawable/laptophitam"
+            android:layout_gravity="end"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:visibility="invisible"
+            android:id="@+id/laptop"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:src="@drawable/ic_print_black_24dp"
+            android:layout_gravity="end"
+            android:visibility="invisible"
+            android:id="@+id/printer"/>
+    </LinearLayout>
+
+
+</LinearLayout>

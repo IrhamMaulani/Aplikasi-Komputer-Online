@@ -41,7 +41,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             case R.id.action_status:
                 fragment = new StatusFragment();
                 break;
+
+            case R.id.action_profil:
+                fragment = new ProfilFragment();
+                break;
                 /*
+
 
             case R.id.navigation_notifications:
                 fragment = new NotificationsFragment();
