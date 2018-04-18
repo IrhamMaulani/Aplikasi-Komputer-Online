@@ -28,7 +28,19 @@
         <activity
             android:name=".login"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ListService"></activity>
+        <activity android:name=".ListService">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.user.komputer.MainActivity" />
+        </activity>
+        <activity
+            android:name=".BerandaService"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.user.komputer.ListService" />
+        </activity>
+        <activity android:name=".Profil"></activity>
     </application>
 
 </manifest>

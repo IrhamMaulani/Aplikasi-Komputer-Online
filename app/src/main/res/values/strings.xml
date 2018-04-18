@@ -6,4 +6,5 @@
 
     <string name="rating_order">Rating</string>
     <string name="distance_order">Distance</string>
+    <string name="kosong"></string>
 </resources>

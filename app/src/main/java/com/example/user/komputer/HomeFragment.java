@@ -3,6 +3,7 @@ package com.example.user.komputer;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -25,6 +26,7 @@ public class HomeFragment extends Fragment implements  View.OnClickListener {
     //}
 
     CardView goToDaftarService;
+    CardView goToWebsite;
 
 
     @Override
@@ -32,35 +34,45 @@ public class HomeFragment extends Fragment implements  View.OnClickListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View myView = inflater.inflate(R.layout.fragment_home, container, false);
+
+
         goToDaftarService = (CardView) myView.findViewById(R.id.list_service);
         goToDaftarService.setOnClickListener(this);
+
+        goToWebsite = (CardView) myView.findViewById(R.id.website);
+        goToWebsite.setOnClickListener(this);
+
         return myView;
 
 
     }
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(getActivity(), ListService.class);
+        /*Intent intent = new Intent(getActivity(), ListService.class);
         getActivity().startActivity(intent);
 
+        String url = "http://www.example.com";
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(url));
+        startActivity(i);*/
 
-    }
-/*
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-       goToDaftarService = (CardView) view.findViewById(R.id.list_service);
-
-        goToDaftarService.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        switch(v.getId())
+        {
+            case R.id.list_service:
                 Intent intent = new Intent(getActivity(), ListService.class);
                 getActivity().startActivity(intent);
-            }
-        });
 
+                break;
+
+            case R.id.website:
+                String url = "https://github.com/IrhamMaulani/Aplikasi-Komputer-Online";
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
+                break;
+
+        }
 
     }
-*/
+
 }

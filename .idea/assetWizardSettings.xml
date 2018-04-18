@@ -18,7 +18,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/D:/Applikasi/Android/plugins/android/lib/android.jar!/images/material_design_icons/hardware/ic_keyboard_arrow_right_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/D:/Applikasi/Android/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_book_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -28,8 +28,8 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="color" value="1a237e" />
-                            <entry key="outputName" value="logo_right" />
+                            <entry key="color" value="ffffff" />
+                            <entry key="outputName" value="ic_book_24dp" />
                             <entry key="sourceFile" value="C:\Users\User" />
                           </map>
                         </option>

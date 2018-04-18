@@ -10,7 +10,7 @@
     <item
         android:id="@+id/action_status"
         android:enabled="true"
-        android:icon="@drawable/logo_history"
+        android:icon="@drawable/ic_book_24dp"
         android:title="Status"
         app:showAsAction="ifRoom" />
     <item
