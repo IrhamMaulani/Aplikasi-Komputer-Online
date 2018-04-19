@@ -40,7 +40,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.user.komputer.ListService" />
         </activity>
-        <activity android:name=".Profil"></activity>
+        <activity
+            android:name=".Profil"
+            android:label="Edit Profil"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
     </application>
 
 </manifest>
