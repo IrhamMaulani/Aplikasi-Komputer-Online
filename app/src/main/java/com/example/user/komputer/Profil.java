@@ -8,11 +8,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
-public class Profil extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.List;
+
+public class Profil extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.8F);
 
     @Override
@@ -47,6 +53,48 @@ public class Profil extends AppCompatActivity {
        EditText et1 = (EditText) findViewById(R.id.edit_text_nama);
        et1.setText("Irham");
 
+
+
+        // Spinner element
+        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+
+        spinner.setOnItemSelectedListener(this);
+
+
+
+        // Spinner Drop down elements
+        List<String> categories = new ArrayList<String>();
+        categories.add("Pilih Kecamatan");
+        categories.add("Banjarmasin Utara");
+        categories.add("Banjarmasin Selatan");
+        categories.add("Banjarmasin Timur");
+        categories.add("Banjarmasin Barat");
+        // Creating adapter for spinner
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categories);
+
+        // Drop down layout style - list view with radio button
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // attaching data adapter to spinner
+        spinner.setAdapter(dataAdapter);
+
+    }
+
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        // On selecting a spinner item
+        String item = parent.getItemAtPosition(position).toString();
+
+
+       if(position == 0){
+
+        }else{
+           Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
+
+       }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
 
     }
 

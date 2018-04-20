@@ -33,6 +33,7 @@ public class BerandaSatuFragment extends Fragment {
 
         textView.setText(strtext);*/
 
+
         return inflater.inflate(R.layout.fragment_beranda_satu, container, false);
     }
 

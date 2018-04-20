@@ -25,6 +25,9 @@ public class BerandaService extends AppCompatActivity {
         Intent intent=getIntent();
         String simpan = intent.getStringExtra("message");
 
+
+
+
         /*if (savedInstanceState == null) {
 
             FragmentTransaction ft = this.getSupportFragmentManager().beginTransaction();
@@ -71,4 +74,5 @@ public class BerandaService extends AppCompatActivity {
 
 
     }
-}
+
+    }
