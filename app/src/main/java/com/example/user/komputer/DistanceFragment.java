@@ -1,6 +1,7 @@
 package com.example.user.komputer;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -48,6 +49,20 @@ public class DistanceFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 //untuk bisa di click
+                Service service = services.get(position);
+
+                /*String message="Terpilih : " + service.getNamaToko();
+
+                Intent intent=new Intent(getActivity(),HalamanService.class);
+                intent.putExtra("message", message);
+                startActivity(intent);
+                */
+
+                Bundle b = new Bundle();
+                b.putStringArray("List", new String[]{service.getNamaToko(), service.getAlamatToko(),service.getJamBuka()});
+                Intent i=new Intent(getActivity(), HalamanService.class);
+                i.putExtras(b);
+                startActivity(i);
 
             }
         });

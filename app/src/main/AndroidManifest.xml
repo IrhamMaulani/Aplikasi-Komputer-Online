@@ -66,8 +66,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.user.komputer.ListService" />
         </activity>
-        <activity android:name=".WebView" />
-        <activity android:name=".KeWebView"></activity>
+
+        <activity android:name=".KeWebView"
+            android:theme="@style/AppTheme"
+            android:label="Help">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.user.komputer.ListService" />
+        </activity>
     </application>
 
 </manifest>

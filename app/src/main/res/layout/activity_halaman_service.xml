@@ -23,9 +23,10 @@
             <ImageView
                 android:id="@+id/header_cover_image"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="200dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:scaleType="center"
+                android:scaleType="centerCrop"
+                android:adjustViewBounds="true"
                 android:src="@drawable/gambar_toko_komputer"
                 />
             <android.support.v7.widget.Toolbar
@@ -46,8 +47,8 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:layout_weight="2"
-            android:layout_margin="16dp"
-            android:background="@color/backgroundcolor"
+            android:background="#82B1FF"
+
             xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
@@ -56,22 +57,29 @@
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:text="Nama Toko"
-               android:textSize="16dp"
+               android:textSize="16sp"
+               android:layout_marginTop="16dp"
+               android:textColor="@android:color/white"
+               android:layout_marginLeft="16dp"
                android:layout_marginBottom="16dp"
                android:id="@+id/nama_toko"/>
 
             <TextView
                 android:id="@+id/alamat"
                 android:layout_width="wrap_content"
+                android:layout_marginLeft="16dp"
                 android:layout_height="wrap_content"
                 android:textSize="16dp"
+                android:textColor="@android:color/white"
                 android:layout_marginBottom="16dp"
                 android:text="Alamat"/>
             <TextView
                 android:id="@+id/openhours"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
                 android:textSize="16dp"
+                android:textColor="@android:color/white"
                 android:layout_marginBottom="16dp"
                 android:text="Open Hours"/>
 
@@ -83,9 +91,11 @@
                 style="?android:attr/ratingBarStyleSmall"
                 android:layout_centerHorizontal="true"
                 android:numStars="5"
+                android:layout_marginLeft="16dp"
                 android:stepSize="1"
                 android:layout_marginBottom="16dp"
-                android:rating="3" />
+                android:rating="3"
+                android:theme="@style/RatingBar"/>
 
 
 
@@ -104,6 +114,73 @@
             tools:context="net.catzie.maptestpremade.MapsActivity"
             class="com.google.android.gms.maps.MapFragment"
             map:cameraZoom="15"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:text="Daftar Service :"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+           >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_alignParentLeft="true"
+                android:layout_marginTop="16dp"
+                >
+                <CheckBox
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Install Ulang "/>
+
+                <CheckBox
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Layar Blank  "/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="16dp"
+                android:id="@+id/coba"
+                android:layout_alignParentRight="true">
+                <CheckBox
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mesin Terbakar "/>
+
+                <CheckBox
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Transformasi jadi Robot"/>
+
+            </LinearLayout>
+
+
+
+
+        </RelativeLayout>
+
+        <Button
+            android:layout_margin="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Submit" />
 
     </LinearLayout>
 

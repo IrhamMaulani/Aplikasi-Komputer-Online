@@ -55,10 +55,8 @@ public class ProfilFragment extends Fragment implements  View.OnClickListener {
                 break;
 
             case  R.id.goToHelp:
-                String url = "https://github.com/IrhamMaulani/Aplikasi-Komputer-Online";
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(url));
-                startActivity(i);
+                Intent intent2 = new Intent(getActivity(),KeWebView.class);
+                getActivity().startActivity(intent2);
                 break;
 
 
