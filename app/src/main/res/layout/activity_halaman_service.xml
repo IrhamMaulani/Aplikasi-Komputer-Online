@@ -61,12 +61,14 @@
                android:id="@+id/nama_toko"/>
 
             <TextView
+                android:id="@+id/alamat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16dp"
                 android:layout_marginBottom="16dp"
                 android:text="Alamat"/>
             <TextView
+                android:id="@+id/openhours"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16dp"
@@ -86,21 +88,22 @@
                 android:rating="3" />
 
 
-            <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:map="http://schemas.android.com/apk/res-auto"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:id="@+id/map"
-                android:name="com.google.android.gms.maps.SupportMapFragment"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                tools:context="net.catzie.maptestpremade.MapsActivity"
-                class="com.google.android.gms.maps.MapFragment" />
+
 
 
         </LinearLayout>
 
 
-
+        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:map="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="600dp"
+            tools:context="net.catzie.maptestpremade.MapsActivity"
+            class="com.google.android.gms.maps.MapFragment"
+            map:cameraZoom="15"/>
 
     </LinearLayout>
 

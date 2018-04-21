@@ -10,10 +10,9 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.util.List;
+import java.util.Map;
 
 
 public class HalamanService extends AppCompatActivity implements OnMapReadyCallback {
@@ -39,9 +38,14 @@ public class HalamanService extends AppCompatActivity implements OnMapReadyCallb
         String[] array=b.getStringArray("List");
 
         TextView namaToko = (TextView) findViewById(R.id.nama_toko);
+        TextView alamatToko = (TextView) findViewById(R.id.alamat);
+        TextView jamBuka = (TextView) findViewById(R.id.openhours);
 
-        namaToko.setText(array[0]);
-
+        if (array != null) {
+            namaToko.setText(array[0]);
+            alamatToko.setText(array[1]);
+            jamBuka.setText("Open Hours " + array[2]);
+        }
 
 
         //Maps dimulai dari sini
@@ -53,9 +57,13 @@ public class HalamanService extends AppCompatActivity implements OnMapReadyCallb
     }
     @Override
     public void onMapReady(GoogleMap map) {
+
+        LatLng loc = new LatLng(-3.297065, 114.585885);
         map.addMarker(new MarkerOptions()
-                .position(new LatLng(0, 0))
+                .position(new LatLng(-3.297065, 114.585885))
                 .title("Marker"));
+        map.moveCamera(CameraUpdateFactory.newLatLng(loc));
+        map.animateCamera(CameraUpdateFactory.zoomTo(map.getCameraPosition().zoom - 0.5f));
     }
 
 

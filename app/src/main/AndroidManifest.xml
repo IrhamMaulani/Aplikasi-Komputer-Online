@@ -2,8 +2,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.user.komputer">
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
-
+    <permission
+        android:name="net.catzie.maptest.permission.MAPS_RECEIVE"
+        android:protectionLevel="signature" />
 
     <application
         android:allowBackup="true"
@@ -12,6 +20,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBpOVf31xe4GtbLPgj8FBSlrn4a2RulYxE" />
 
         <activity
             android:name=".SplashScreen"
@@ -47,21 +58,16 @@
         <activity
             android:name=".Profil"
             android:label="Edit Profil"
-            android:theme="@style/AppTheme.NoActionBar"/>
-
-        <activity android:name=".HalamanService"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".HalamanService"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.user.komputer.ListService" />
         </activity>
-
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBpOVf31xe4GtbLPgj8FBSlrn4a2RulYxE"/>
+        <activity android:name=".WebView" />
+        <activity android:name=".KeWebView"></activity>
     </application>
-
-    <permission android:name="net.catzie.maptest.permission.MAPS_RECEIVE"
-        android:protectionLevel="signature" />
 
 </manifest>
