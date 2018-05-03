@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +17,26 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.user.komputer.Adapter.TokoServiceListAdapter;
+import com.example.user.komputer.Model.TokoService;
+import com.example.user.komputer.Network.ApiInterface;
+
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class RatingFragment extends Fragment {
+    private ListView listView;
+    private SwipeRefreshLayout SwipeRefresh;
+
 
 
     public RatingFragment() {
@@ -33,54 +49,123 @@ public class RatingFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.daftar_list, container, false);
 
+        listView = (ListView) rootView.findViewById(R.id.list);
 
-        final ArrayList<Service> services = new ArrayList<Service>();
-        services.add(new Service("Bintang Komputer","09:00 - 17:30","Jl.Raya Banjar Indah,Banjarmasin Selatan",0));
-        services.add(new Service("BSS Komputer","08:00 - 22:00","Jl.Adi Patra 1,Banjarmasin Selatan",1));
-        services.add(new Service("Surabaya Com","08:30 - 17:30","Jl.Let.Jend S.paraman,Banjarmasin Barat",2));
-        services.add(new Service("Untung Service Komputer","00:00 - 23:59","Jl.Raya Purna Sakti,Banjarmasin Selatan",2));
-        services.add(new Service("Energi Komputer","09:00 - 17:30","Jl.Saka Permain No 20,Banjarmasin Barat",2));
-        services.add(new Service("DPL Komputer","09:00 - 17:30","Jl.Padat Karya,Banjarmasin Utara",1));
-        services.add(new Service("SMC Komputer","09:00 - 17:30","Jl.Sultan Adam ,Banjarmasin Utara",2));
-        services.add(new Service("Amici Komputer","09:00 - 17:30","Jl.Mesjid Jami,Banjarmasin Utara",2));
-        services.add(new Service("T4 Service ","09:00 - 17:30","Jl.Sultan Adam,Banjarmasin Utara",2));
-        services.add(new Service("Asoka.com","09:00 - 17:30","Jl.Sultan Adam,Banjarmasin Utara",2));
-        services.add(new Service("A&W Service","09:00 - 17:30","Jl.Sultan Adam,Banjarmasin Utara",2));
-        services.add(new Service("Nix Computer","09:00 - 17:30","Jl.Sultan Adam,Banjarmasin Utara",2));
+        Retrofit.Builder builder = new Retrofit.Builder()
+                .baseUrl("http://192.168.1.70/")
+                .addConverterFactory(GsonConverterFactory.create());
 
-        ServiceAdapter adapter = new ServiceAdapter(getActivity(), services);
+        Retrofit retrofit = builder.build();
 
-        ListView listView = (ListView) rootView.findViewById(R.id.list);
-        listView.setAdapter(adapter);
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        ApiInterface client = retrofit.create(ApiInterface.class);
+        Call<List<TokoService>> call = client.getRatingKomputer();
+        call.enqueue(new Callback<List<TokoService>>() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-              //untuk bisa di click
-                Service service = services.get(position);
+            public void onResponse(Call<List<TokoService>> call, Response<List<TokoService>> response) {
+                if (response.isSuccessful()) {
+                    final List<TokoService> repos = response.body();
 
-                /*String message="Terpilih : " + service.getNamaToko();
+                    listView.setAdapter(new TokoServiceListAdapter(getActivity(), repos));
+                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
 
-                Intent intent=new Intent(getActivity(),HalamanService.class);
-                intent.putExtra("message", message);
-                startActivity(intent);
-                */
+                            TokoService tokoService = repos.get(position);
+                            // Intent intent = new Intent(MainActivity.this, UpdateData.class);
+                            //intent.putExtra("EXTRA_SESSION_ID", konsumen.getIdkonsumen());
 
-                Bundle b = new Bundle();
-                b.putStringArray("List", new String[]{service.getNamaToko(), service.getAlamatToko(),service.getJamBuka()});
-                Intent i=new Intent(getActivity(), HalamanService.class);
-                i.putExtras(b);
-                startActivity(i);
+                            //String message="Terpilih : " + konsumen.getIdkonsumen();
+                            // Toast.makeText(MainActivity.this, "aa:(" + message, Toast.LENGTH_SHORT).show();
 
+                            // Start the new activity
+                            //startActivity(intent);
+                            Bundle b = new Bundle();
+                            b.putStringArray("List", new String[]{tokoService.getNamaService(),tokoService.getAlamatService(),tokoService.getKoordinatService(),tokoService.getFotoService()});
+                            Intent i=new Intent(getActivity()   , HalamanService.class);
+                            i.putExtras(b);
+                            startActivity(i);
 
+                        }
+                    });
+                }
+
+                else if(response.code() == 400){
+                    Toast.makeText(getActivity(), "Server busuk :(", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<List<TokoService>> call, Throwable t) {
+                Toast.makeText(getActivity(), "error :(", Toast.LENGTH_SHORT).show();
 
             }
         });
+
+        SwipeRefresh = rootView.findViewById(R.id.swipe_refresh);
+        // Mengeset properti warna yang berputar pada SwipeRefreshLayout
+        SwipeRefresh.setColorSchemeResources(R.color.colorAccent, R.color.colorPrimary);
+
+        // Mengeset listener yang akan dijalankan saat layar di refresh/swipe
+        SwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Handler digunakan untuk menjalankan jeda selama 5 detik
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        // Berhenti berputar/refreshing
+                        SwipeRefresh.setRefreshing(false);
+
+                        //Berganti Text Setelah Layar di Refresh
+                        refreshData();
+
+                    }
+                },2000); //4000 millisecond = 4 detik
+            }
+        });
+
+
+
+
         return rootView;
 
 
 
 
+    }
+
+    public void refreshData(){
+        Retrofit.Builder builder = new Retrofit.Builder()
+                .baseUrl("http://192.168.1.70/")
+                .addConverterFactory(GsonConverterFactory.create());
+
+        Retrofit retrofit = builder.build();
+
+        ApiInterface client = retrofit.create(ApiInterface.class);
+        Call<List<TokoService>> call = client.getRatingKomputer();
+        call.enqueue(new Callback<List<TokoService>>() {
+            @Override
+            public void onResponse(Call<List<TokoService>> call, Response<List<TokoService>> response) {
+                if (response.isSuccessful()) {
+                    final List<TokoService> repos = response.body();
+
+                    listView.setAdapter(new TokoServiceListAdapter(getActivity(), repos));
+
+                }
+
+                else if(response.code() == 400){
+                    Toast.makeText(getActivity(), "Server busuk :(", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<List<TokoService>> call, Throwable t) {
+                Toast.makeText(getActivity(), "error :(", Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 
 }

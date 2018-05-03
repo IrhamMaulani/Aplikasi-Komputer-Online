@@ -22,7 +22,7 @@
         android:theme="@style/AppTheme">
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBpOVf31xe4GtbLPgj8FBSlrn4a2RulYxE" />
+            android:value="AIzaSyAFB-NycLe_KsOcoIlzuQ9prsc8_tsT114" />
 
         <activity
             android:name=".SplashScreen"
@@ -66,13 +66,19 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.user.komputer.ListService" />
         </activity>
-
-        <activity android:name=".KeWebView"
-            android:theme="@style/AppTheme"
-            android:label="Help">
+        <activity
+            android:name=".KeWebView"
+            android:label="Help"
+            android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.user.komputer.ListService" />
+        </activity>
+        <activity android:name=".RiwayatService"
+            android:label="Riwayat Service">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.user.komputer.MainActivity" />
         </activity>
     </application>
 

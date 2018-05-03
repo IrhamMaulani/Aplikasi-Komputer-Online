@@ -27,7 +27,7 @@ public class HomeFragment extends Fragment implements  View.OnClickListener {
 
     CardView goToDaftarService;
     CardView goToWebsite;
-
+    CardView goToRiwayat;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,6 +41,9 @@ public class HomeFragment extends Fragment implements  View.OnClickListener {
 
         goToWebsite = (CardView) myView.findViewById(R.id.website);
         goToWebsite.setOnClickListener(this);
+
+        goToRiwayat = (CardView) myView.findViewById(R.id.goToRiwayat);
+        goToRiwayat.setOnClickListener(this);
 
         return myView;
 
@@ -67,6 +70,11 @@ public class HomeFragment extends Fragment implements  View.OnClickListener {
             case R.id.website:
                 Intent intent2 = new Intent(getActivity(), KeWebView.class);
                 getActivity().startActivity(intent2);
+                break;
+
+            case R.id.goToRiwayat:
+                Intent intent3 = new Intent(getActivity(), RiwayatService.class);
+                getActivity().startActivity(intent3);
                 break;
 
         }
