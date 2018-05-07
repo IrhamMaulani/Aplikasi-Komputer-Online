@@ -26,7 +26,7 @@ import android.support.v4.app.FragmentPagerAdapter;
  */
 
 //adapter fragment untuk daftar service
-
+//di hapus
 public class FragmentAdapter extends FragmentPagerAdapter {
     private Context mContext;
 

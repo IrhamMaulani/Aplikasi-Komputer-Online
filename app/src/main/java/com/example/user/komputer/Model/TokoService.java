@@ -23,10 +23,12 @@ public class TokoService {
 
     @SerializedName("Daftar_Service")
     @Expose
-    private String daftarService;
+    private int daftarService;
     @SerializedName("Username_SA")
     @Expose
     private String usernameSA;
+
+
 
     public String getIdService() {
         return idService;
@@ -61,7 +63,7 @@ public class TokoService {
     }
 
     public String getFotoService() {
-        return "http://192.168.1.70/ServiceComputer/pages/tables/upload/" + fotoService;
+        return "http://pemrograman-web.ti.ulm.ac.id/Kelompok13/pages/tables/upload/" + fotoService;
     }
 
     public void setFotoService(String fotoService) {
@@ -69,13 +71,11 @@ public class TokoService {
     }
 
 
-    public String getDaftarService() {
+    public int getDaftarService() {
         return daftarService;
     }
 
-    public void setDaftarService(String daftarService) {
-        this.daftarService = daftarService;
-    }
+
 
     public String getUsernameSA() {
         return usernameSA;

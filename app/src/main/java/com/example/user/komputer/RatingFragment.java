@@ -52,7 +52,8 @@ public class RatingFragment extends Fragment {
         listView = (ListView) rootView.findViewById(R.id.list);
 
         Retrofit.Builder builder = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.70/")
+                .baseUrl("http://pemrograman-web.ti.ulm.ac.id/")
+                //.baseUrl("http://192.168.1.70/")
                 .addConverterFactory(GsonConverterFactory.create());
 
         Retrofit retrofit = builder.build();
@@ -80,7 +81,7 @@ public class RatingFragment extends Fragment {
                             // Start the new activity
                             //startActivity(intent);
                             Bundle b = new Bundle();
-                            b.putStringArray("List", new String[]{tokoService.getNamaService(),tokoService.getAlamatService(),tokoService.getKoordinatService(),tokoService.getFotoService()});
+                            b.putStringArray("List", new String[]{tokoService.getNamaService(),tokoService.getAlamatService(),tokoService.getFotoService(),tokoService.getIdService()});
                             Intent i=new Intent(getActivity()   , HalamanService.class);
                             i.putExtras(b);
                             startActivity(i);
@@ -118,7 +119,7 @@ public class RatingFragment extends Fragment {
                         SwipeRefresh.setRefreshing(false);
 
                         //Berganti Text Setelah Layar di Refresh
-                        refreshData();
+                        refreshDataKomputer();
 
                     }
                 },2000); //4000 millisecond = 4 detik
@@ -135,9 +136,10 @@ public class RatingFragment extends Fragment {
 
     }
 
-    public void refreshData(){
+    public void refreshDataKomputer(){
         Retrofit.Builder builder = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.70/")
+                .baseUrl("http://pemrograman-web.ti.ulm.ac.id/")
+                //.baseUrl("http://192.168.1.70/")
                 .addConverterFactory(GsonConverterFactory.create());
 
         Retrofit retrofit = builder.build();

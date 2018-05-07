@@ -58,6 +58,21 @@ public class TokoServiceListAdapter extends ArrayAdapter<TokoService>{
         Picasso.with(context).load(currentWord.getFotoService()).into(imageView);
 
         //imageView.setImageResource(currentWord.getFotoService());
+        ImageView imageLaptop = (ImageView) listItemView.findViewById(R.id.laptop);
+        ImageView imagePrinter = (ImageView) listItemView.findViewById(R.id.printer);
+
+        if(currentWord.getDaftarService() == 2 ){
+            imageLaptop.setVisibility(View.VISIBLE);
+            imagePrinter.setVisibility(View.VISIBLE);
+        }
+        else if(currentWord.getDaftarService() == 1){
+            imageLaptop.setVisibility(View.VISIBLE);
+            imagePrinter.setVisibility(View.INVISIBLE);
+        }
+        else if(currentWord.getDaftarService() == 0){
+            imagePrinter.setVisibility(View.VISIBLE);
+            imageLaptop.setVisibility(View.INVISIBLE);
+        }
 
 
         // Return the whole list item layout (containing 2 TextViews) so that it can be shown in

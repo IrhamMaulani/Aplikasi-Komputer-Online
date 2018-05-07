@@ -25,27 +25,28 @@
                 android:orientation="vertical"
                 android:layout_weight="2">
             <TextView
+                android:id="@+id/user_name_profil"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Irham Maulani"
                 android:textSize="22sp"
+                android:maxLength="15"
                 android:textStyle="bold"
                 android:layout_margin="16dp"
                 android:textColor="@color/backgroundcolor"/>
 
                 <TextView
+                    android:id="@+id/user_telepon_profil"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
-                    android:text="+6299697210069"
                     android:textColor="@color/backgroundcolor"/>
 
                 <TextView
+                    android:id="@+id/alamat_user"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
                     android:layout_marginBottom="16dp"
-                    android:text="Jl.HKSN komp AMD Permai"
                     android:textColor="@color/backgroundcolor"/>
 
             </LinearLayout>
@@ -119,6 +120,7 @@
 
 
     <LinearLayout
+        android:id="@+id/btn_for_logout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"

@@ -9,6 +9,7 @@ public class CategoryAdapter extends FragmentPagerAdapter {
 
     private Context mContext;
 
+    //LIST DAFTAR SERVICE
     /**
      * Create a new {@link CategoryAdapter} object.
      *
@@ -27,7 +28,7 @@ public class CategoryAdapter extends FragmentPagerAdapter {
             return new RatingFragment();
         }
         else{
-            return new DistanceFragment();
+            return new RatingFragment();
         }
 
     }

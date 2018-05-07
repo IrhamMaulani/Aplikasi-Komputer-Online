@@ -74,12 +74,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.user.komputer.ListService" />
         </activity>
-        <activity android:name=".RiwayatService"
+        <activity
+            android:name=".RiwayatService"
             android:label="Riwayat Service">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.user.komputer.MainActivity" />
         </activity>
+        <activity android:name=".Register"></activity>
     </application>
 
 </manifest>
