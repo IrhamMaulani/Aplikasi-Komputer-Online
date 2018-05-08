@@ -39,6 +39,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class HalamanService extends AppCompatActivity implements OnMapReadyCallback {
     private Context context;
+    private EditText keluhan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +71,7 @@ public class HalamanService extends AppCompatActivity implements OnMapReadyCallb
         TextView alamatToko = (TextView) findViewById(R.id.alamat);
         TextView jamBuka = (TextView) findViewById(R.id.openhours);
 
-        final EditText keluhan = (EditText) findViewById(R.id.edit_text_kerusakan);
+         keluhan = (EditText) findViewById(R.id.edit_text_kerusakan);
 
 
 
@@ -91,6 +92,11 @@ public class HalamanService extends AppCompatActivity implements OnMapReadyCallb
        submit.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
+
+               if (!validate()) {
+                   Toast.makeText(HalamanService.this, "Gagal"  , Toast.LENGTH_SHORT).show();
+                   return;
+               }
 
                AlertDialog.Builder alert = new AlertDialog.Builder(HalamanService.this);
                alert.setCancelable(true);
@@ -186,5 +192,22 @@ public class HalamanService extends AppCompatActivity implements OnMapReadyCallb
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         super.onBackPressed();
+    }
+
+    public boolean validate() {
+        boolean valid = true;
+
+        String keluhanValid = keluhan.getText().toString();
+
+
+        if (keluhanValid.isEmpty() || keluhanValid.length() < 3) {
+            keluhan.setError("at least 3 characters");
+            valid = false;
+        } else {
+            keluhan.setError(null);
+        }
+
+
+        return valid;
     }
 }

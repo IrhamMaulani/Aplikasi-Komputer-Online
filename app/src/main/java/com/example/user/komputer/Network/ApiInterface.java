@@ -46,11 +46,17 @@ public interface ApiInterface {
 
     @GET("/Kelompok13/pages/notification/viewpemberitahuan.php")
         // @GET("servicekomputer/pages/notification/viewService.php")
-    Call<List<Notifikasi>> getNotifikasi(@Query("Username") String userName);
+    Call<Riwayat> getNotifikasi(@Query("Username") String userName);
 
     @GET("/Kelompok13/pages/notification/viewRiwayat.php")
         // @GET("servicekomputer/pages/notification/viewService.php")
     Call<Riwayat> getRiwayat(@Query("Username") String userName);
+
+    @FormUrlEncoded
+    @POST("/Kelompok13/pages/user/registrasi.php")
+    Call<ProfilModel> registrasiUser(@Field("Username") String userName,
+                                   @Field("Password") String kataSandi,
+                                   @Field("Email") String email);
 
 
 }

@@ -27,7 +27,7 @@
         </android.support.design.widget.TextInputLayout>
 
         <!--  Name Label -->
-        <android.support.design.widget.TextInputLayout
+      <!--  <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textCapWords"
                 android:hint="Name" />
-        </android.support.design.widget.TextInputLayout>
+        </android.support.design.widget.TextInputLayout>-->
 
         <!-- Email Label -->
         <android.support.design.widget.TextInputLayout
@@ -75,13 +75,32 @@
             android:padding="12dp"
             android:text="Create Account"/>
 
-        <TextView android:id="@+id/link_login"
-            android:layout_width="fill_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:text="Already a member? Login"
-            android:gravity="center"
-            android:textSize="16dip"/>
+            android:orientation="horizontal"
+            android:layout_marginLeft="30dp">
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:text="Already a Member? "
+                android:layout_marginLeft="24dp"
+                android:gravity="center"
+                android:textSize="16dip"/>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:textColor="@color/colorPrimary"
+                android:text="Log in"
+                android:gravity="center"
+                android:onClick="keLogin"
+                android:textSize="16dip"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 </ScrollView>

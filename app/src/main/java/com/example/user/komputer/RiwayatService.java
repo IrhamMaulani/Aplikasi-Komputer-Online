@@ -1,5 +1,7 @@
 package com.example.user.komputer;
 
+import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -29,6 +31,7 @@ public class RiwayatService extends AppCompatActivity {
     private RecyclerView.LayoutManager mLayoutManager;
     public static RiwayatService ma;
     String nama;
+    private SwipeRefreshLayout SwipeRefresh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,29 @@ public class RiwayatService extends AppCompatActivity {
 
         ma=this;
         refresh();
+
+        SwipeRefresh = findViewById(R.id.swipe_for_refresh);
+        // Mengeset properti warna yang berputar pada SwipeRefreshLayout
+        SwipeRefresh.setColorSchemeResources(R.color.colorAccent, R.color.colorPrimary);
+
+        // Mengeset listener yang akan dijalankan saat layar di refresh/swipe
+        SwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Handler digunakan untuk menjalankan jeda selama 5 detik
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        // Berhenti berputar/refreshing
+                        SwipeRefresh.setRefreshing(false);
+
+                        //Berganti Text Setelah Layar di Refresh
+                        refresh();
+
+                    }
+                },2000); //4000 millisecond = 4 detik
+            }
+        });
     }
 
     public void refresh() {

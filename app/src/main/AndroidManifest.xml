@@ -81,7 +81,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.user.komputer.MainActivity" />
         </activity>
-        <activity android:name=".Register"></activity>
+        <activity android:name=".Register"
+            android:label="Registrasi">
+
+        </activity>
     </application>
 
 </manifest>

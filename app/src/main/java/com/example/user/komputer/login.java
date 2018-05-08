@@ -99,7 +99,7 @@ public class login extends AppCompatActivity {
                     @Override
                     public void onFailure(Call<ProfilModel> call, Throwable t) {
 
-                        Toast.makeText(login.this, "Gagal memasukkan Data :(" , Toast.LENGTH_SHORT).show();
+                        Toast.makeText(login.this, "Isikan Data Anda dengan Benar" , Toast.LENGTH_SHORT).show();
                         Log.v("Coba","isi dari konsumen" +inputPassword.getText().toString() );
                     }
                 });
@@ -129,4 +129,7 @@ public class login extends AppCompatActivity {
         // Start the new activity
         startActivity(registerIntent);
     }
-}
+
+
+    }
+
