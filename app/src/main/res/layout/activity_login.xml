@@ -15,6 +15,7 @@
         android:paddingRight="24dp">
 
         <ImageView
+            android:src="@drawable/kom"
             android:layout_width="wrap_content"
             android:layout_height="72dp"
             android:layout_marginBottom="24dp"
@@ -29,15 +30,15 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:textColorHint="@android:color/white"
-            >
-            <EditText android:id="@+id/input_user_name"
+          >
+            <EditText android:id="@+id/input_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
-                android:hint="user name"
+                android:hint="Email"
                 android:textColor="@android:color/white"
                 android:backgroundTint="@android:color/white"
-                />
+               />
         </android.support.design.widget.TextInputLayout>
 
         <!-- Password Label -->
@@ -67,33 +68,15 @@
             android:background="#536DFE"
             android:text="Login"
             android:textColor="@android:color/white"/>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginLeft="30dp">
 
-        <TextView
+        <TextView android:id="@+id/link_signup"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
             android:textColor="@android:color/white"
-            android:text="No account yet? "
-            android:layout_marginLeft="24dp"
+            android:text="No account yet? Create one"
             android:gravity="center"
             android:textSize="16dip"/>
-
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                android:textColor="@color/colorPrimary"
-                android:text="Create one"
-                android:gravity="center"
-                android:onClick="keSignUp"
-                android:textSize="16dip"/>
-
-        </LinearLayout>
 
     </LinearLayout>
 </ScrollView>
