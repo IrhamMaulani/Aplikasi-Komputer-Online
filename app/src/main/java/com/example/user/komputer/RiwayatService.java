@@ -7,9 +7,13 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.user.komputer.Adapter.NotifikasiAdapter;
+import com.example.user.komputer.Adapter.NotifikasiRecyclerAdapter;
 import com.example.user.komputer.Adapter.RiwayatAdapter;
 import com.example.user.komputer.Model.Notifikasi;
 import com.example.user.komputer.Model.Riwayat;
@@ -32,12 +36,15 @@ public class RiwayatService extends AppCompatActivity {
     public static RiwayatService ma;
     String nama;
     private SwipeRefreshLayout SwipeRefresh;
-
+    ProgressBar progressBar ;
+    TextView emptyView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_view);
 
+        progressBar = (ProgressBar) findViewById(R.id.progress_bar) ;
+        emptyView = (TextView) findViewById(R.id.empty_view);
         SharedPrefManager sharedPrefManager = new SharedPrefManager(RiwayatService.this);
         nama = sharedPrefManager.getSPNama();
 
@@ -86,16 +93,25 @@ public class RiwayatService extends AppCompatActivity {
         call.enqueue(new Callback<Riwayat>() {
             @Override
             public void onResponse(Call<Riwayat> call, Response<Riwayat> response) {
+                String value = response.body().getValue();
+                progressBar.setVisibility(View.GONE);
 
 
 
-                   List<Notifikasi> KontakList = response.body().getListDataNotifikasi();
-                    Log.d("Retrofit Get", "Jumlah data Kontak: " +
-                            String.valueOf(KontakList.size()));
-
-
+                if (value.equals("1")) {
+                    List<Notifikasi> KontakList = response.body().getListDataNotifikasi();
                     mAdapter = new RiwayatAdapter(KontakList);
                     mRecyclerView.setAdapter(mAdapter);
+
+
+                }
+                else{
+                    progressBar.setVisibility(View.GONE);
+                    mRecyclerView.setVisibility(View.GONE);
+                    emptyView.setVisibility(View.VISIBLE);
+                    emptyView.setText("Data Kosong,Lakukan transaksi terlebih dahulu");
+
+                }
 
 
 
@@ -108,6 +124,7 @@ public class RiwayatService extends AppCompatActivity {
             @Override
             public void onFailure(Call<Riwayat>call, Throwable t) {
                 Toast.makeText(RiwayatService.this, "error :(", Toast.LENGTH_SHORT).show();
+                emptyView.setText("Anda Tidak terkoneksi ke Internet");
 
             }
         });

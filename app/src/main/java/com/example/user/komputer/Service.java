@@ -11,7 +11,11 @@ public class Service {
     private int gambarToko = GAMBAR_TIDAK_ADA;
     private static final int GAMBAR_TIDAK_ADA = -1;
 
-    public Service(String namaToko , String jamBuka , String alamatToko , int kodePerbaikan ,double latitude , double longitude ){
+    private String waktuBuka;
+
+
+
+    public Service(String namaToko , String jamBuka , String alamatToko , int kodePerbaikan ,double latitude , double longitude ,String waktuBuka){
 
         this.namaToko = namaToko;
         this.jamBuka = jamBuka;
@@ -19,6 +23,8 @@ public class Service {
         this.kodePerbaikan = kodePerbaikan;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.waktuBuka = waktuBuka;
+
     }
     public Service(String namaToko , String jamBuka , String alamatToko , int kodePerbaikan  ){
 
@@ -55,6 +61,10 @@ public class Service {
     public int getKodePerbaikan() {
         return kodePerbaikan;
 
+    }
+
+    public String getWaktuBuka() {
+        return waktuBuka;
     }
 
     public int getGambarToko() {

@@ -1,9 +1,11 @@
 package com.example.user.komputer;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -40,7 +42,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class HalamanService extends AppCompatActivity implements OnMapReadyCallback {
     private Context context;
     private EditText keluhan;
-
+    String nama,namaTokoService;
+    int idServisan;
+    ProgressDialog csprogress;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,9 +61,9 @@ public class HalamanService extends AppCompatActivity implements OnMapReadyCallb
 
 
         SharedPrefManager sharedPrefManager = new SharedPrefManager(this);
-        final String nama = sharedPrefManager.getSPNama();
+         nama = sharedPrefManager.getSPNama();
 
-
+        csprogress=new ProgressDialog(HalamanService.this);
 
         Bundle b = this.getIntent().getExtras();
         String[] array=b.getStringArray("List");
@@ -75,13 +79,16 @@ public class HalamanService extends AppCompatActivity implements OnMapReadyCallb
 
 
 
+         namaTokoService = array[0];
+
             namaToko.setText(array[0]);
             alamatToko.setText(array[1]);
+            jamBuka.setText(array[4]);
            // jamBuka.setText("Open Hours " + array[2]);
 
             String foto = array[2];
             String idService = array[3];
-            final int idServisan = Integer.parseInt(idService);
+            idServisan = Integer.parseInt(idService);
 
             ImageView imageView = (ImageView) findViewById(R.id.header_cover_image);
 
@@ -94,7 +101,7 @@ public class HalamanService extends AppCompatActivity implements OnMapReadyCallb
            public void onClick(View view) {
 
                if (!validate()) {
-                   Toast.makeText(HalamanService.this, "Gagal"  , Toast.LENGTH_SHORT).show();
+                   Toast.makeText(HalamanService.this, "Mohon isikan kerusakan anda"  , Toast.LENGTH_SHORT).show();
                    return;
                }
 
@@ -107,32 +114,21 @@ public class HalamanService extends AppCompatActivity implements OnMapReadyCallb
                            public void onClick(DialogInterface dialog, int which) {
                               //isi
 
-                               Retrofit.Builder builder = new Retrofit.Builder()
-                                       .baseUrl("http://pemrograman-web.ti.ulm.ac.id/")
-                                       .addConverterFactory(GsonConverterFactory.create());
+                               csprogress.setMessage("Loading...");
+                               csprogress.show();
+                               new Handler().postDelayed(new Runnable() {
 
-                               Retrofit retrofit = builder.build();
-                               ApiInterface client = retrofit.create(ApiInterface.class);
-                               Call<ProfilModel> call = client.orderService(nama,idServisan,keluhan.getText().toString());
-
-                               call.enqueue(new Callback<ProfilModel>() {
                                    @Override
-                                   public void onResponse(Call<ProfilModel> call, Response<ProfilModel> response) {
-                                       Toast.makeText(HalamanService.this, "" + response.body().getResponseServer(), Toast.LENGTH_SHORT).show();
-                                       // Log.v("cek sasja","isi dari konsumen" +response.body().getResponseServer() );
-                                       //
+                                   public void run() {
+                                       csprogress.dismiss();
+//whatever you want just you have to launch overhere.
 
+                                       submitData();
 
 
                                    }
+                               }, 1000);
 
-                                   @Override
-                                   public void onFailure(Call<ProfilModel> call, Throwable t) {
-
-                                       Toast.makeText(HalamanService.this, "Gagal Meng-Order" , Toast.LENGTH_SHORT).show();
-
-                                   }
-                               });
                            }
 
                        });
@@ -163,21 +159,24 @@ public class HalamanService extends AppCompatActivity implements OnMapReadyCallb
 
 
     }
+
     @Override
     public void onMapReady(GoogleMap map) {
-        Bundle bundle = this.getIntent().getExtras();
-        double [] array1 = bundle.getDoubleArray("Koordinat");
+        Bundle b = this.getIntent().getExtras();
+        double [] array1 = b.getDoubleArray("koordinat");
         if (array1 != null) {
-            double lat = array1[0];
-            double lang = array1[1];
+            double longi = array1[0];
+            double lat = array1[1];
+            Log.v("cek sasja","isi dari konsumen" +lat );
+            Log.v("cek sasja","isi dari konsumen" +longi );
 
 
 
-            LatLng loc = new LatLng(lat, lang);
+            LatLng loc = new LatLng(lat, longi);
 
             map.addMarker(new MarkerOptions()
-                    .position(new LatLng(lat, lang))
-                    .title("Marker"));
+                    .position(new LatLng(lat, longi))
+                    .title(namaTokoService));
             map.moveCamera(CameraUpdateFactory.newLatLng(loc));
             map.animateCamera(CameraUpdateFactory.zoomTo(map.getCameraPosition().zoom - 0.5f));
         }
@@ -209,5 +208,34 @@ public class HalamanService extends AppCompatActivity implements OnMapReadyCallb
 
 
         return valid;
+    }
+
+    public void submitData(){
+        Retrofit.Builder builder = new Retrofit.Builder()
+                .baseUrl("http://pemrograman-web.ti.ulm.ac.id/")
+                .addConverterFactory(GsonConverterFactory.create());
+
+        Retrofit retrofit = builder.build();
+        ApiInterface client = retrofit.create(ApiInterface.class);
+        Call<ProfilModel> call = client.orderService(nama,idServisan,keluhan.getText().toString());
+
+        call.enqueue(new Callback<ProfilModel>() {
+            @Override
+            public void onResponse(Call<ProfilModel> call, Response<ProfilModel> response) {
+                Toast.makeText(HalamanService.this, "" + response.body().getResponseServer(), Toast.LENGTH_SHORT).show();
+                // Log.v("cek sasja","isi dari konsumen" +response.body().getResponseServer() );
+                //
+
+
+
+            }
+
+            @Override
+            public void onFailure(Call<ProfilModel> call, Throwable t) {
+
+                Toast.makeText(HalamanService.this, "Gagal Meng-Order" , Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 }

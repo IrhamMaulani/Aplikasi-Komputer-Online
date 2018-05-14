@@ -8,6 +8,13 @@ public class Riwayat {
     @SerializedName("result")
     List<Notifikasi> listDataNotifikasi;
 
+    @SerializedName("value")
+    private String value;
+
+    public String getValue() {
+        return value;
+    }
+
     public List<Notifikasi> getListDataNotifikasi() {
         return listDataNotifikasi;
     }

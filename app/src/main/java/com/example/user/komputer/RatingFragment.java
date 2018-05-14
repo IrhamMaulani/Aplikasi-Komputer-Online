@@ -81,10 +81,17 @@ public class RatingFragment extends Fragment {
                             // Start the new activity
                             //startActivity(intent);
                             Bundle b = new Bundle();
-                            b.putStringArray("List", new String[]{tokoService.getNamaService(),tokoService.getAlamatService(),tokoService.getFotoService(),tokoService.getIdService()});
+                            b.putStringArray("List", new String[]{tokoService.getNamaService(),tokoService.getAlamatService(),tokoService.getFotoService(),tokoService.getIdService(),tokoService.getWaktuBuka()});
+                            b.putDoubleArray("koordinat", new double[]{tokoService.getLongitud(),tokoService.getLatitud()});
                             Intent i=new Intent(getActivity()   , HalamanService.class);
                             i.putExtras(b);
                             startActivity(i);
+
+                            /*Bundle bundle = new Bundle();
+                            bundle.putDoubleArray("koordinat", new double[]{tokoService.getLatitud(),tokoService.getLongitud()});
+                            Intent intent=new Intent(getActivity()   , HalamanService.class);
+                            intent.putExtras(bundle);
+                            startActivity(intent);*/
 
                         }
                     });

@@ -51,6 +51,10 @@ public class TokoServiceListAdapter extends ArrayAdapter<TokoService>{
         // Get the default translation from the currentWord object and set this text on
         // the default TextView.
 
+        TextView waktuBuka = (TextView) listItemView.findViewById(R.id.waktubuka);
+
+        waktuBuka.setText(currentWord.getWaktuBuka());
+
             defaultTextView.setText(currentWord.getAlamatService());
 
         ImageView imageView = (ImageView) listItemView.findViewById(R.id.image);

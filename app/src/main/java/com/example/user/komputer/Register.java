@@ -2,6 +2,7 @@ package com.example.user.komputer;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -23,6 +24,7 @@ public class Register extends AppCompatActivity {
     //EditText inputNama;
     EditText inputEmail;
     EditText inputPassword;
+    ProgressDialog csprogress;
 
 
     @Override
@@ -37,11 +39,27 @@ public class Register extends AppCompatActivity {
 
 
         final Button registerUser = (Button) findViewById(R.id.btn_signup);
+        csprogress=new ProgressDialog(Register.this);
 
         registerUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                registerUser();
+
+                csprogress.setMessage("Loading...");
+                csprogress.show();
+                new Handler().postDelayed(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        csprogress.dismiss();
+//whatever you want just you have to launch overhere.
+
+                        registerUser();
+
+
+                    }
+                }, 1000);
+
             }
         });
 
@@ -62,6 +80,11 @@ public class Register extends AppCompatActivity {
         call.enqueue(new Callback<ProfilModel>() {
             @Override
             public void onResponse(Call<ProfilModel> call, Response<ProfilModel> response) {
+
+                if (!validate()) {
+                    Toast.makeText(Register.this, "Mohon isikan kerusakan anda"  , Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 final ProgressDialog progressDialog = new ProgressDialog(Register.this);
                 progressDialog.setIndeterminate(true);
@@ -91,6 +114,42 @@ public class Register extends AppCompatActivity {
 
         // Start the new activity
         startActivity(registerIntent);
+    }
+
+    public boolean validate() {
+        boolean valid = true;
+
+        String namaRegister = inputUserNama.getText().toString();
+        String emailRegister = inputEmail.getText().toString();
+        String passwordRegister = inputPassword.getText().toString();
+        String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+
+
+        if (namaRegister.isEmpty() || namaRegister.length() < 3) {
+            inputUserNama.setError("at least 3 characters");
+            valid = false;
+        } else {
+            inputUserNama.setError(null);
+        }
+
+        if (emailRegister.isEmpty() || emailRegister.length() < 3 || emailRegister.matches(emailPattern))  {
+            inputEmail.setError("Input right email");
+            valid = false;
+        } else {
+            inputUserNama.setError(null);
+        }
+
+        if (passwordRegister.isEmpty() || passwordRegister.length() < 3) {
+            inputUserNama.setError("at least 3 characters");
+            valid = false;
+        } else {
+            inputUserNama.setError(null);
+        }
+
+
+
+
+        return valid;
     }
 
 

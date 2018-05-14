@@ -27,6 +27,35 @@ public class TokoService {
     @SerializedName("Username_SA")
     @Expose
     private String usernameSA;
+    @SerializedName("longitud")
+    @Expose
+    private double longitud;
+
+    @SerializedName("waktuBuka")
+    @Expose
+    private String waktuBuka;
+
+    public String getWaktuBuka() {
+        return waktuBuka;
+    }
+
+    public void setWaktuBuka(String waktuBuka) {
+        this.waktuBuka = waktuBuka;
+    }
+
+    public double getLongitud() {
+        return longitud;
+    }
+
+    public double getLatitud() {
+        return latitud;
+    }
+
+    @SerializedName("latitud")
+    @Expose
+    private double latitud;
+
+
 
 
 

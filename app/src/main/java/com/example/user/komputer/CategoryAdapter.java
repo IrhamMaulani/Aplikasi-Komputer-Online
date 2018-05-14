@@ -28,7 +28,7 @@ public class CategoryAdapter extends FragmentPagerAdapter {
             return new RatingFragment();
         }
         else{
-            return new RatingFragment();
+            return new DistanceFragment();
         }
 
     }

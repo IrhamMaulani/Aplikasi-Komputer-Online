@@ -1,18 +1,10 @@
 <resources>
-    <string name="app_name">Aplikasi Komputer Go</string>
-    <string name="title_activity_login">Login</string>
-
-
-    <!-- Resource untuk menu-->
-    <string name="title_home">Home Page</string>
-    <string name="title_book">Under Construction</string>
-    <string name="title_music">Under Construction</string>
-    <string name="title_video">Under Construction</string>
-    <string name="title_activity_splash_screen">SplashScreen</string>
+    <string name="app_name">Komputer</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-
-    <!-- Strings related to login -->
+    <string name="rating_order">Rating</string>
+    <string name="distance_order">Distance</string>
+    <string name="kosong"></string>
 </resources>

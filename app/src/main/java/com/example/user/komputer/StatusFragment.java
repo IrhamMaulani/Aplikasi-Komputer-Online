@@ -13,7 +13,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.user.komputer.Adapter.NotifikasiAdapter;
@@ -23,6 +26,7 @@ import com.example.user.komputer.Adapter.TokoServiceListAdapter;
 import com.example.user.komputer.Model.Notifikasi;
 import com.example.user.komputer.Model.Riwayat;
 import com.example.user.komputer.Model.TokoService;
+import com.example.user.komputer.Network.ApiClient;
 import com.example.user.komputer.Network.ApiInterface;
 import com.example.user.komputer.SharedPreference.SharedPrefManager;
 
@@ -41,11 +45,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class StatusFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
+   // private RecyclerView.LayoutManager mLayoutManager;
+   private LinearLayoutManager mLayoutManager;
     public static StatusFragment ma;
     String nama;
      private SwipeRefreshLayout SwipeRefresh;
-
+    ApiInterface mApiInterface;
+    TextView emptyView;
+    ProgressBar progressBar;
 
     public StatusFragment() {
         // Required empty public constructor
@@ -59,6 +66,8 @@ public class StatusFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.list_view, container, false);
 
 
+         emptyView = (TextView)rootView.findViewById(R.id.empty_view);
+         progressBar = (ProgressBar)rootView.findViewById(R.id.progress_bar);
 
         SharedPrefManager sharedPrefManager = new SharedPrefManager(getContext());
         nama = sharedPrefManager.getSPNama();
@@ -89,10 +98,13 @@ public class StatusFragment extends Fragment {
         });
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerView);
         mLayoutManager = new LinearLayoutManager(getContext());
+        mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);
+        mApiInterface = ApiClient.getClient().create(ApiInterface.class);
 
         ma=this;
         refreshData();
+
 
 
 
@@ -102,29 +114,49 @@ public class StatusFragment extends Fragment {
     }
     public void refreshData(){
 
-        Retrofit.Builder builder = new Retrofit.Builder()
-                .baseUrl("http://pemrograman-web.ti.ulm.ac.id/")
-                //.baseUrl("http://192.168.1.70/")
-                .addConverterFactory(GsonConverterFactory.create());
 
-        Retrofit retrofit = builder.build();
+        //Retrofit.Builder builder = new Retrofit.Builder()
+               // .baseUrl("http://pemrograman-web.ti.ulm.ac.id/")
+               // //.baseUrl("http://192.168.1.70/")
+             //   .addConverterFactory(GsonConverterFactory.create());
+
+       // Retrofit retrofit = builder.build();
 
 
-        ApiInterface client = retrofit.create(ApiInterface.class);
-        Call<Riwayat> call = client.getNotifikasi(nama);
+
+
+       // ApiInterface client = retrofit.create(ApiInterface.class);
+        //Call<Riwayat> call = client.getNotifikasi(nama);
+
+        Call<Riwayat> call = mApiInterface.getNotifikasi(nama);
         call.enqueue(new Callback<Riwayat>() {
             @Override
             public void onResponse(Call<Riwayat> call, Response<Riwayat> response) {
+                String value = response.body().getValue();
+                progressBar.setVisibility(View.GONE);
 
 
 
-                List<Notifikasi> KontakList = response.body().getListDataNotifikasi();
-                Log.d("Retrofit Get", "Jumlah data Kontak: " +
-                        String.valueOf(KontakList.size()));
+               // List<Notifikasi> KontakList = response.body().getListDataNotifikasi();
+                //Log.d("Retrofit Get", "Jumlah data Kontak: " +
+                        //String.valueOf(KontakList.size()));
+
+                if (value.equals("1")) {
+                    List<Notifikasi> KontakList = response.body().getListDataNotifikasi();
+                    mAdapter = new NotifikasiRecyclerAdapter(KontakList);
+                    mRecyclerView.setAdapter(mAdapter);
+
+                }
+                else{
+                    progressBar.setVisibility(View.GONE);
+                    mRecyclerView.setVisibility(View.GONE);
+                    emptyView.setVisibility(View.VISIBLE);
+                    emptyView.setText("Data Kosong,Lakukan transaksi terlebih dahulu");
+
+                }
 
 
-                mAdapter = new NotifikasiRecyclerAdapter(KontakList);
-                mRecyclerView.setAdapter(mAdapter);
+
 
 
 
@@ -137,6 +169,11 @@ public class StatusFragment extends Fragment {
             @Override
             public void onFailure(Call<Riwayat>call, Throwable t) {
                 Toast.makeText(getContext(), "error :(", Toast.LENGTH_SHORT).show();
+                mRecyclerView.setVisibility(View.GONE);
+                emptyView.setVisibility(View.VISIBLE);
+                emptyView.setText("Anda Tidak terkoneksi ke Internet");
+
+
 
             }
         });

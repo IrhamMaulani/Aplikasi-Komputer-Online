@@ -1,5 +1,6 @@
 package com.example.user.komputer.Adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import com.example.user.komputer.Model.Notifikasi;
 import com.example.user.komputer.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class NotifikasiRecyclerAdapter extends RecyclerView.Adapter<NotifikasiRecyclerAdapter.MyViewHolder>  {
@@ -23,6 +25,10 @@ public class NotifikasiRecyclerAdapter extends RecyclerView.Adapter<NotifikasiRe
 
     public NotifikasiRecyclerAdapter(List <Notifikasi> KontakList) {
         mKontakList = KontakList;
+    }
+
+    public NotifikasiRecyclerAdapter(Activity context) {
+
     }
 
     public MyViewHolder onCreateViewHolder (ViewGroup parent, int viewType){
@@ -86,7 +92,9 @@ public class NotifikasiRecyclerAdapter extends RecyclerView.Adapter<NotifikasiRe
     @Override
     public int getItemCount () {
 
+
         return mKontakList.size();
+
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {

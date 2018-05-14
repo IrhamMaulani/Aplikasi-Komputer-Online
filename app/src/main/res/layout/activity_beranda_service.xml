@@ -21,12 +21,22 @@
     android:layout_weight="2">
 
 
-    <ImageView
+    <!--<ImageView
         android:id="@+id/header_cover_image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:scaleType="centerCrop"
+        android:src="@drawable/gambar_toko_komputer"
+        />-->
+
+    <ImageView
+        android:id="@+id/header_cover_image"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true"
         android:src="@drawable/gambar_toko_komputer"
         />
 

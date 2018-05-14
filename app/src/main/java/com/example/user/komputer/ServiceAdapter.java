@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class ServiceAdapter extends ArrayAdapter<Service> {
 
-
+//di hapus tidak penting
     public ServiceAdapter(Context context, ArrayList<Service> services) {
         super(context, 0, services);
     }
@@ -46,6 +46,10 @@ public class ServiceAdapter extends ArrayAdapter<Service> {
         // Get the default translation from the currentWord object and set this text on
         // the default TextView.
         alamatTokoTextView.setText(currentWord.getAlamatToko());
+
+        TextView waktuBuka = (TextView) listItemView.findViewById(R.id.waktubuka);
+
+        waktuBuka.setText(currentWord.getWaktuBuka());
 
         ImageView imageLaptop = (ImageView) listItemView.findViewById(R.id.laptop);
         ImageView imagePrinter = (ImageView) listItemView.findViewById(R.id.printer);
