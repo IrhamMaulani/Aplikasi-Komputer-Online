@@ -41,4 +41,9 @@
         <item name="colorControlNormal">#FFFF00</item>
         <item name="colorControlActivated">#FFFF8D</item>
     </style>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> Penambahan activity baru untuk pemesanan,penghilangan di batalkan di status fragment,penambahan pager di riwayat service,perbaikan bug fragment login
 </resources>

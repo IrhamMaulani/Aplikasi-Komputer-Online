@@ -3,7 +3,11 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 27
     defaultConfig {
+<<<<<<< HEAD
         applicationId "com.example.user.komputer"
+=======
+        applicationId "com.example.shiina.komputer"
+>>>>>>> Penambahan activity baru untuk pemesanan,penghilangan di batalkan di status fragment,penambahan pager di riwayat service,perbaikan bug fragment login
         minSdkVersion 15
         targetSdkVersion 27
         versionCode 1
@@ -36,5 +40,8 @@ dependencies {
 
     //Picaso
     compile 'com.squareup.picasso:picasso:2.5.2'
+<<<<<<< HEAD
 
+=======
+>>>>>>> Penambahan activity baru untuk pemesanan,penghilangan di batalkan di status fragment,penambahan pager di riwayat service,perbaikan bug fragment login
 }

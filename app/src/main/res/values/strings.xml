@@ -7,4 +7,12 @@
     <string name="rating_order">Rating</string>
     <string name="distance_order">Distance</string>
     <string name="kosong"></string>
+<<<<<<< HEAD
+=======
+
+    <string name="category_riwayat_ditolak">Dibatalkan</string>
+    <string name="category_riwayat_diambil">Diambil</string>
+
+
+>>>>>>> Penambahan activity baru untuk pemesanan,penghilangan di batalkan di status fragment,penambahan pager di riwayat service,perbaikan bug fragment login
 </resources>

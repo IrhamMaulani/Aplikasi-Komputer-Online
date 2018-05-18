@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+<<<<<<< HEAD
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+=======
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+>>>>>>> Penambahan activity baru untuk pemesanan,penghilangan di batalkan di status fragment,penambahan pager di riwayat service,perbaikan bug fragment login
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
@@ -19,7 +28,15 @@ android:layout_height="match_parent"
 android:drawSelectorOnTop="true"/>
 
 <!--Android draw selector untuk efek ketika list di klik-->
+<<<<<<< HEAD
 
     </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>
 
+=======
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+</LinearLayout>
+
+
+>>>>>>> Penambahan activity baru untuk pemesanan,penghilangan di batalkan di status fragment,penambahan pager di riwayat service,perbaikan bug fragment login

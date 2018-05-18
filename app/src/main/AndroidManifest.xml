@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.user.komputer">
@@ -12,6 +13,11 @@
     <permission
         android:name="net.catzie.maptest.permission.MAPS_RECEIVE"
         android:protectionLevel="signature" />
+=======
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.shiina.komputer">
+
+>>>>>>> Penambahan activity baru untuk pemesanan,penghilangan di batalkan di status fragment,penambahan pager di riwayat service,perbaikan bug fragment login
 
     <application
         android:allowBackup="true"
@@ -46,14 +52,22 @@
         <activity android:name=".ListService">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
+<<<<<<< HEAD
                 android:value="com.example.user.komputer.MainActivity" />
+=======
+                android:value="com.example.shiina.komputer.MainActivity" />
+>>>>>>> Penambahan activity baru untuk pemesanan,penghilangan di batalkan di status fragment,penambahan pager di riwayat service,perbaikan bug fragment login
         </activity>
         <activity
             android:name=".BerandaService"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
+<<<<<<< HEAD
                 android:value="com.example.user.komputer.ListService" />
+=======
+                android:value="com.example.shiina.komputer.ListService" />
+>>>>>>> Penambahan activity baru untuk pemesanan,penghilangan di batalkan di status fragment,penambahan pager di riwayat service,perbaikan bug fragment login
         </activity>
         <activity
             android:name=".Profil"
@@ -64,7 +78,11 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
+<<<<<<< HEAD
                 android:value="com.example.user.komputer.ListService" />
+=======
+                android:value="com.example.shiina.komputer.ListService" />
+>>>>>>> Penambahan activity baru untuk pemesanan,penghilangan di batalkan di status fragment,penambahan pager di riwayat service,perbaikan bug fragment login
         </activity>
         <activity
             android:name=".KeWebView"
@@ -72,19 +90,37 @@
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
+<<<<<<< HEAD
                 android:value="com.example.user.komputer.ListService" />
+=======
+                android:value="com.example.shiina.komputer.ListService" />
+>>>>>>> Penambahan activity baru untuk pemesanan,penghilangan di batalkan di status fragment,penambahan pager di riwayat service,perbaikan bug fragment login
         </activity>
         <activity
             android:name=".RiwayatService"
             android:label="Riwayat Service">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
+<<<<<<< HEAD
                 android:value="com.example.user.komputer.MainActivity" />
+=======
+                android:value="com.example.shiina.komputer.MainActivity" />
+>>>>>>> Penambahan activity baru untuk pemesanan,penghilangan di batalkan di status fragment,penambahan pager di riwayat service,perbaikan bug fragment login
         </activity>
         <activity android:name=".Register"
             android:label="Registrasi">
 
         </activity>
+<<<<<<< HEAD
     </application>
 
 </manifest>
+=======
+
+        <activity
+            android:name=".DaftarServiceActivity"
+            android:label="Daftar Service">
+        </activity>
+    </application>
+</manifest>
+>>>>>>> Penambahan activity baru untuk pemesanan,penghilangan di batalkan di status fragment,penambahan pager di riwayat service,perbaikan bug fragment login
