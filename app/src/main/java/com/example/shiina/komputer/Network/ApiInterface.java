@@ -1,7 +1,9 @@
 package com.example.shiina.komputer.Network;
 
 import com.example.shiina.komputer.Model.DaftarService;
+import com.example.shiina.komputer.Model.Notifikasi;
 import com.example.shiina.komputer.Model.ProfilModel;
+import com.example.shiina.komputer.Model.RatingModel;
 import com.example.shiina.komputer.Model.Riwayat;
 import com.example.shiina.komputer.Model.TokoService;
 
@@ -15,13 +17,22 @@ import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 public interface ApiInterface {
+
+    //rating fragment
     @GET("/Kelompok13/pages/notification/viewService.php")
-   // @GET("servicekomputer/pages/notification/viewService.php")
+        // @GET("servicekomputer/pages/notification/viewService.php")
     Call<List<TokoService>> getRatingKomputer();
+
+    //untuk rating nilai halaman
+    @GET("/Kelompok13/pages/rating/viewRating.php")
+    // @GET("servicekomputer/pages/notification/viewService.php")
+    Call<RatingModel> getNilaiKomputer(@Query("idService") int idService);
+
+
 
     @GET("/Kelompok13/pages/notification/viewdaftarservice.php")
         // @GET("servicekomputer/pages/notification/viewService.php")
-    Call<List<DaftarService>> getDaftarService();
+    Call<List<DaftarService>> getDaftarService(@Query("idService") int idService);
 
     @FormUrlEncoded
     @POST("/Kelompok13/pages/user/signin.php")
@@ -60,6 +71,21 @@ public interface ApiInterface {
     Call<ProfilModel> registrasiUser(@Field("Username") String userName,
                                    @Field("Password") String kataSandi,
                                    @Field("Email") String email);
+
+    @FormUrlEncoded
+    @POST("/Kelompok13/pages/notification/statusTransaksi_batal.php")
+    Call<Notifikasi> UpdateStatusTransaksi(@Field("idTransaksi") int idTransaksi,
+                                    @Field("Status_Transaksi") String Status_Transaksi,
+                                           @Field("alasan_pembatalan") String alasanPembatalan);
+
+    @FormUrlEncoded
+    @POST("/Kelompok13/pages/notification/statusTransaksi_batal.php")
+    Call<Notifikasi> masukanRating(@Field("userRating") float userRating,
+                                   @Field("idService") int idService,
+                                   @Field("Username") String Username,
+                                   @Field("idTransaksi") int idTransaksi,
+                                   @Field("Status_Transaksi") String Status_Transaksi,
+                                   @Field("alasan_pembatalan") String alasanPembatalan);
 
 
 }

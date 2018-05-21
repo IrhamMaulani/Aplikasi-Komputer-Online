@@ -23,7 +23,7 @@ public class Register extends AppCompatActivity {
     EditText inputUserNama;
     //EditText inputNama;
     EditText inputEmail;
-    EditText inputPassword;
+    EditText inputPassword,confirmPassword;
     ProgressDialog csprogress;
 
 
@@ -36,6 +36,7 @@ public class Register extends AppCompatActivity {
        // inputNama = (EditText) findViewById(R.id.input_name);
         inputEmail = (EditText) findViewById(R.id.input_email);
         inputPassword = (EditText) findViewById(R.id.input_password);
+        confirmPassword = (EditText) findViewById(R.id.input_confirm_password);
 
 
         final Button registerUser = (Button) findViewById(R.id.btn_signup);
@@ -53,6 +54,10 @@ public class Register extends AppCompatActivity {
                     public void run() {
                         csprogress.dismiss();
 //whatever you want just you have to launch overhere.
+                        if (!validate()) {
+                            Toast.makeText(Register.this, "Isikan data anda dengan benar"  , Toast.LENGTH_SHORT).show();
+                            return;
+                        }
 
                         registerUser();
 
@@ -81,22 +86,26 @@ public class Register extends AppCompatActivity {
             @Override
             public void onResponse(Call<ProfilModel> call, Response<ProfilModel> response) {
 
-                if (!validate()) {
-                    Toast.makeText(Register.this, "Isikan data anda dengan benar"  , Toast.LENGTH_SHORT).show();
-                    return;
+
+
+                if(response.body().getResponseServer().equals("Username sudah ada")) {
+                    Toast.makeText(Register.this, "Username sudah ada" , Toast.LENGTH_SHORT).show();
+                    inputUserNama.setError("Username sudah ada");
                 }
+                else{
 
-                final ProgressDialog progressDialog = new ProgressDialog(Register.this);
-                progressDialog.setIndeterminate(true);
-                progressDialog.setMessage("Authenticating...");
-                progressDialog.show();
-                Toast.makeText(Register.this, "" + response.body().getResponseServer(), Toast.LENGTH_SHORT).show();
-                // Log.v("cek sasja","isi dari konsumen" +response.body().getResponseServer() );
-                //
-                Intent myIntent = new Intent(Register.this, login.class);
-                Register.this.startActivity(myIntent);
-                finish();
+                    final ProgressDialog progressDialog = new ProgressDialog(Register.this);
+                    progressDialog.setIndeterminate(true);
+                    progressDialog.setMessage("Authenticating...");
+                    progressDialog.show();
+                    Toast.makeText(Register.this, "" + response.body().getResponseServer(), Toast.LENGTH_SHORT).show();
+                    // Log.v("cek sasja","isi dari konsumen" +response.body().getResponseServer() );
+                    //
+                    Intent myIntent = new Intent(Register.this, login.class);
+                    Register.this.startActivity(myIntent);
+                    finish();
 
+                }
 
             }
 
@@ -122,12 +131,9 @@ public class Register extends AppCompatActivity {
         String namaRegister = inputUserNama.getText().toString();
         String emailRegister = inputEmail.getText().toString();
         String passwordRegister = inputPassword.getText().toString();
-        String emailPattern = "^(([\\\\w-]+\\\\.)+[\\\\w-]+|([a-zA-Z]{1}|[\\\\w-]{2,}))@\"\n" +
-                "                 +\"((([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\\\.([0-1]?\"\n" +
-                "                   +\"[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\\\.\"\n" +
-                "                   +\"([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\\\.([0-1]?\"\n" +
-                "                   +\"[0-9]{1,2}|25[0-5]|2[0-4][0-9])){1}|\"\n" +
-                "                   +\"([a-zA-Z]+[\\\\w-]+\\\\.)+[a-zA-Z]{2,4})$";
+        String confirmPasswordRegister = confirmPassword.getText().toString();
+        //String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+.[a-z]+";
+       // String emailPattern ="^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
 
 
         if (namaRegister.isEmpty() || namaRegister.length() < 3) {
@@ -137,18 +143,24 @@ public class Register extends AppCompatActivity {
             inputUserNama.setError(null);
         }
 
-        if (emailRegister.isEmpty() || emailRegister.length() < 3 || emailRegister.matches(emailPattern))  {
+        if (emailRegister.isEmpty() || emailRegister.length() < 3 || !android.util.Patterns.EMAIL_ADDRESS.matcher(emailRegister).matches() )  {
             inputEmail.setError("Input right email");
             valid = false;
         } else {
             inputEmail.setError(null);
         }
 
-        if (passwordRegister.isEmpty() || passwordRegister.length() < 3) {
-            inputPassword.setError("at least 3 characters");
+        if (passwordRegister.isEmpty() || passwordRegister.length() < 8) {
+            inputPassword.setError("Password at least 8 characters");
             valid = false;
         } else {
             inputPassword.setError(null);
+        }
+        if (confirmPasswordRegister.isEmpty()||!confirmPasswordRegister.equals(passwordRegister)) {
+            confirmPassword.setError("Confirm password berbeda dengan Password");
+            valid = false;
+        } else {
+            confirmPassword.setError(null);
         }
 
 
@@ -157,9 +169,5 @@ public class Register extends AppCompatActivity {
         return valid;
     }
 
-    @Override
-    public void onBackPressed() {
 
-        super.onBackPressed();
-    }
 }

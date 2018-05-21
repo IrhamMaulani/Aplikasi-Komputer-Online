@@ -12,9 +12,12 @@ public class KeWebView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ke_web_view);
 
+
+
         WebView myWebView = (WebView) findViewById(R.id.webview);
-        myWebView.loadUrl("https://github.com/IrhamMaulani/Aplikasi-Komputer-Online");
+        myWebView.loadUrl("http://pemrograman-web.ti.ulm.ac.id/Kelompok13/pages/Faq/Template-FAQ/");
         WebSettings webSettings = myWebView.getSettings();
+        myWebView.clearCache(true);
         webSettings.setJavaScriptEnabled(true);
     }
 }

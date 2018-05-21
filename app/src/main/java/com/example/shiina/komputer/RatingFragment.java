@@ -59,6 +59,8 @@ public class RatingFragment extends Fragment {
             @Override
             public void onResponse(Call<List<TokoService>> call, Response<List<TokoService>> response) {
                 if (response.isSuccessful()) {
+
+
                     final List<TokoService> repos = response.body();
 
                     listView.setAdapter(new TokoServiceListAdapter(getActivity(), repos));

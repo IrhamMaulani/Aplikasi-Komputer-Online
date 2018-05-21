@@ -2,6 +2,7 @@ package com.example.shiina.komputer.Adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.shiina.komputer.DetailStatusServiceActivity;
 import com.example.shiina.komputer.Model.Notifikasi;
 import com.example.shiina.komputer.R;
 
@@ -40,6 +42,35 @@ public class NotifikasiRecyclerAdapter extends RecyclerView.Adapter<NotifikasiRe
         holder.mTextViewStatusTransaksi.setText(( mKontakList.get(position).getStatusTransaksi()));
         holder.mTextViewNamaToko.setText(( mKontakList.get(position).getNamaToko()));
         holder.mTextViewKerusakan.setText((mKontakList.get(position).getKerusakan()));
+
+
+
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent mIntent = new Intent(view.getContext(), DetailStatusServiceActivity.class);
+                    mIntent.putExtra("Id", mKontakList.get(position).getIdTransaksi());
+                    mIntent.putExtra("IdToko", mKontakList.get(position).getIdService());
+                    mIntent.putExtra("NamaToko", mKontakList.get(position).getNamaToko());
+                    mIntent.putExtra("Alamat", mKontakList.get(position).getAlamatToko());
+                    mIntent.putExtra("NamaService", mKontakList.get(position).getKerusakan());
+                    mIntent.putExtra("FotoService", mKontakList.get(position).getFotoToko());
+
+                    if(mKontakList.get(position).getStatusTransaksi().equals("Menunggu")){
+
+                        mIntent.putExtra("Boleh", "1");
+                    }
+                    else if(mKontakList.get(position).getStatusTransaksi().equals("ON-PROSES")){
+                        mIntent.putExtra("Boleh", "0");
+                    }
+                    else{
+                        mIntent.putExtra("Boleh", "2");
+                    }
+                    view.getContext().startActivity(mIntent);
+
+                }
+            });
+
 
 
         switch (mKontakList.get(position).getStatusTransaksi()) {

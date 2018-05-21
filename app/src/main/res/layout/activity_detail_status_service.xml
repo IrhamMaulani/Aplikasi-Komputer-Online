@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    tools:context=".DetailStatusServiceActivity">
+
+    <android.support.v7.widget.CardView
+        android:foreground="?android:attr/selectableItemBackground"
+        android:id="@+id/list_service"
+        android:clickable="false"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="16dp"
+            android:layout_gravity="center_horizontal">
+
+
+            <de.hdodenhof.circleimageview.CircleImageView
+
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/foto_toko_service"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="16dp"
+                android:src="@drawable/gambar_toko_komputer"
+                app:civ_border_width="2dp"
+                app:civ_border_color="#FF000000"/>
+
+            <TextView
+                android:id="@+id/txt_for_namatoko"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:text="Nama Toko : Aneka Komputer"/>
+
+            <TextView
+                android:id="@+id/txt_for_alamat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:text="Alamat Service : Jl aaaaaaa"/>
+            <TextView
+                android:id="@+id/txt_for_service"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:text="Service yang di pesan : Install ulang windows"/>
+
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/txt_pemberitahuan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:textSize="14sp"
+        android:visibility="gone"
+        android:text="PESANAN ANDA SEDANG DI PROSES"/>
+        <RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_below="@+id/txt_pemberitahuan"
+            android:layout_height="wrap_content"
+            style="?android:attr/ratingBarStyle"
+            android:layout_margin="18dp"
+            android:visibility="gone"
+            />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/container_untuk_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="Batalkan Pesanan :"/>
+
+
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/RGroup">
+
+    <RadioButton
+        android:id="@+id/checkbox_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Terlalu lama Respon"
+        />
+    <RadioButton
+        android:id="@+id/checkbox_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Komputer telah normal kembali"
+        />
+    <RadioButton
+        android:id="@+id/checkbox_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sudah ke tempat service yang lain"
+        />
+
+        <RadioButton
+            android:id="@+id/checkbox_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lainnya"
+            />
+
+        </RadioGroup>
+        <Button
+            android:id="@+id/btn_for_submit"
+            android:layout_width="wrap_content"
+            android:layout_margin="16dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="submit"/>
+
+
+
+    </LinearLayout>
+    <Button
+        android:id="@+id/btn_for_selesai"
+        android:layout_width="wrap_content"
+        android:layout_margin="16dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:visibility="gone"
+        android:text="Diambil"/>
+
+
+
+
+</LinearLayout>

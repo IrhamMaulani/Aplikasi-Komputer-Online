@@ -169,4 +169,9 @@ public class StatusFragment extends Fragment {
 
     }
 
+    @Override
+    public void onResume() {
+        refreshData();
+        super.onResume();
+    }
 }

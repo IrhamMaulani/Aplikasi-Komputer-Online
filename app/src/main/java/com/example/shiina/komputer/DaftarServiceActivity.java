@@ -37,6 +37,7 @@ public class DaftarServiceActivity   extends AppCompatActivity {
     private String namaUser;
     private int idTokoService;
     private ProgressDialog csprogress;
+    TextView emptyView;
 
 
     @Override
@@ -45,15 +46,21 @@ public class DaftarServiceActivity   extends AppCompatActivity {
         setContentView(R.layout.daftar_list);
 
         listView = (ListView) findViewById(R.id.list);
+        emptyView = (TextView) findViewById(R.id.empty_view);
 
         namaUser = getIntent().getStringExtra("namaPemesan");
+        String namaToko = getIntent().getStringExtra("namaToko");
         String idTokoServiceString = getIntent().getStringExtra("idService");
         idTokoService = Integer.parseInt(idTokoServiceString);
+
 
         Log.v("Coba","isi dari idtoko service" + idTokoService);
         Log.v("Coba","isi dari namaUser" + namaUser);
 
         csprogress=new ProgressDialog(DaftarServiceActivity.this);
+
+        //getActionBar().setTitle("List Service di toko " + namaToko);
+        getSupportActionBar().setTitle( namaToko);
 
 
         getData();
@@ -95,7 +102,7 @@ public class DaftarServiceActivity   extends AppCompatActivity {
         Retrofit retrofit = builder.build();
 
         ApiInterface client = retrofit.create(ApiInterface.class);
-        Call<List<DaftarService>> call = client.getDaftarService();
+        Call<List<DaftarService>> call = client.getDaftarService(idTokoService);
         call.enqueue(new Callback<List<DaftarService>>() {
             @Override
             public void onResponse(Call<List<DaftarService>> call, Response<List<DaftarService>> response) {
@@ -172,7 +179,9 @@ public class DaftarServiceActivity   extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<DaftarService>> call, Throwable t) {
-                Toast.makeText(DaftarServiceActivity.this, "error :(", Toast.LENGTH_SHORT).show();
+                Toast.makeText(DaftarServiceActivity.this, "Terjadi Gangguan Silahkan coba lagi", Toast.LENGTH_SHORT).show();
+                emptyView.setVisibility(View.VISIBLE);
+                emptyView.setText("Nobody But us Chicken");
 
             }
         });

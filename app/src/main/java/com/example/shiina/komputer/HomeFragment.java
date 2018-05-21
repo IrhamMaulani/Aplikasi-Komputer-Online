@@ -27,7 +27,7 @@ public class HomeFragment extends Fragment implements  View.OnClickListener {
 
     CardView goToDaftarService;
     CardView goToWebsite;
-    CardView goToRiwayat;
+    CardView goToRiwayat,goToAksesori;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,6 +44,9 @@ public class HomeFragment extends Fragment implements  View.OnClickListener {
 
         goToRiwayat = (CardView) myView.findViewById(R.id.goToRiwayat);
         goToRiwayat.setOnClickListener(this);
+
+        goToAksesori = (CardView) myView.findViewById(R.id.got_to_aksesoris);
+        goToAksesori.setOnClickListener(this);
 
         return myView;
 
@@ -68,13 +71,20 @@ public class HomeFragment extends Fragment implements  View.OnClickListener {
                 break;
 
             case R.id.website:
-                Intent intent2 = new Intent(getActivity(), KeWebView.class);
-                getActivity().startActivity(intent2);
+                String url = "http://pemrograman-web.ti.ulm.ac.id/Kelompok13";
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
                 break;
 
             case R.id.goToRiwayat:
                 Intent intent3 = new Intent(getActivity(), RiwayatService.class);
                 getActivity().startActivity(intent3);
+                break;
+
+            case R.id.got_to_aksesoris:
+                Intent intent4 = new Intent(getActivity(), CobaPlaceMapsActivity.class);
+                getActivity().startActivity(intent4);
                 break;
 
         }

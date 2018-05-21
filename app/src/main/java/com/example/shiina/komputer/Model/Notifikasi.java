@@ -32,6 +32,38 @@ public class Notifikasi {
     @Expose
     private String namaToko;
 
+    @SerializedName("Alamat_Service")
+    @Expose
+    private String alamatToko;
+
+    @SerializedName("Foto_Service")
+    @Expose
+    private String fotoToko;
+
+    @SerializedName("response")
+    @Expose
+    private String responseServer;
+
+    @SerializedName("alasan_pembatalan")
+    @Expose
+    private String alasanPembatalan;
+
+    public String getAlasanPembatalan() {
+        return alasanPembatalan;
+    }
+
+    public String getResponseServer() {
+        return responseServer;
+    }
+
+    public String getAlamatToko() {
+        return alamatToko;
+    }
+
+    public String getFotoToko() {
+        return "http://pemrograman-web.ti.ulm.ac.id/Kelompok13/pages/tables_toko/upload/" + fotoToko;
+    }
+
     public String getNamaToko() {
         return namaToko;
     }

@@ -92,7 +92,7 @@ public class TokoService {
     }
 
     public String getFotoService() {
-        return "http://pemrograman-web.ti.ulm.ac.id/Kelompok13/pages/tables/upload/" + fotoService;
+        return "http://pemrograman-web.ti.ulm.ac.id/Kelompok13/pages/tables_toko/upload/" + fotoService;
     }
 
     public void setFotoService(String fotoService) {

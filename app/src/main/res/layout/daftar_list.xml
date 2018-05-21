@@ -1,42 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<<<<<<< HEAD
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-=======
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
->>>>>>> Penambahan activity baru untuk pemesanan,penghilangan di batalkan di status fragment,penambahan pager di riwayat service,perbaikan bug fragment login
+    <TextView
+        android:id="@+id/empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:visibility="gone"
+        android:text="NO DATA AVAILABLE" />
+
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+
+
+
 <ListView xmlns:android="http://schemas.android.com/apk/res/android"
 xmlns:tools="http://schemas.android.com/tools"
 android:id="@+id/list"
 android:orientation="vertical"
 android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:drawSelectorOnTop="true"/>
+android:layout_height="match_parent" />
+
+
+
+
+
+
 
 <!--Android draw selector untuk efek ketika list di klik-->
-<<<<<<< HEAD
-
-    </android.support.v4.widget.SwipeRefreshLayout>
-</LinearLayout>
-
-=======
     </android.support.v4.widget.SwipeRefreshLayout>
 
-</LinearLayout>
+</RelativeLayout>
 
 
->>>>>>> Penambahan activity baru untuk pemesanan,penghilangan di batalkan di status fragment,penambahan pager di riwayat service,perbaikan bug fragment login

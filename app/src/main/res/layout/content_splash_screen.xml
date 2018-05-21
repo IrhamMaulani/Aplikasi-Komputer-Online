@@ -5,11 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-<<<<<<< HEAD
-    tools:context="com.example.user.aplikasikomputergo.SplashScreen"
-=======
     tools:context="com.example.shiina.aplikasikomputergo.SplashScreen"
->>>>>>> Penambahan activity baru untuk pemesanan,penghilangan di batalkan di status fragment,penambahan pager di riwayat service,perbaikan bug fragment login
     tools:showIn="@layout/activity_splash_screen">
 
 </android.support.constraint.ConstraintLayout>

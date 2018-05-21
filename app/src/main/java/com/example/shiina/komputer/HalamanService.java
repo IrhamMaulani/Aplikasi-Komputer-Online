@@ -14,10 +14,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.shiina.komputer.Model.ProfilModel;
+import com.example.shiina.komputer.Model.RatingModel;
+import com.example.shiina.komputer.Network.ApiClient;
 import com.example.shiina.komputer.Network.ApiInterface;
 import com.example.shiina.komputer.SharedPreference.SharedPrefManager;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -43,6 +46,9 @@ public class HalamanService extends AppCompatActivity implements OnMapReadyCallb
     int idServisan;
     ProgressDialog csprogress;
     String idService;
+    RatingBar ratingBar;
+    ApiInterface mApiInterface;
+    float  ratingDouble ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +66,17 @@ public class HalamanService extends AppCompatActivity implements OnMapReadyCallb
 
         SharedPrefManager sharedPrefManager = new SharedPrefManager(this);
          nama = sharedPrefManager.getSPNama();
+
+         ratingBar = (RatingBar) findViewById(R.id.ratingBar);
+
+
+
+
+        mApiInterface = ApiClient.getClient().create(ApiInterface.class);
+
+
+
+
 
         csprogress=new ProgressDialog(HalamanService.this);
 
@@ -92,6 +109,19 @@ public class HalamanService extends AppCompatActivity implements OnMapReadyCallb
 
             Picasso.with(context).load(foto).into(imageView);
 
+            //
+        //awal logika rating bar
+
+        getRating();
+
+//
+
+
+
+        //
+
+
+
        Button submit = (Button) findViewById(R.id.btn_for_submit);
 
        submit.setOnClickListener(new View.OnClickListener() {
@@ -101,6 +131,7 @@ public class HalamanService extends AppCompatActivity implements OnMapReadyCallb
                Intent intent = new Intent(HalamanService.this, DaftarServiceActivity.class);
                intent.putExtra("idService", idService);
                intent.putExtra("namaPemesan", nama);
+               intent.putExtra("namaToko", namaTokoService);
                startActivity(intent);
 
 
@@ -207,4 +238,59 @@ public class HalamanService extends AppCompatActivity implements OnMapReadyCallb
         });
     }
     */
+
+    public void getRating(){
+        Retrofit.Builder builder = new Retrofit.Builder()
+                .baseUrl("http://pemrograman-web.ti.ulm.ac.id/")
+                .addConverterFactory(GsonConverterFactory.create());
+
+        Retrofit retrofit = builder.build();
+        ApiInterface client = retrofit.create(ApiInterface.class);
+        Call<RatingModel> call = client.getNilaiKomputer(idServisan);
+        call.enqueue(new Callback<RatingModel>() {
+            @Override
+            public void onResponse(Call<RatingModel> call, Response<RatingModel> response) {
+                //progressDialog.dismiss();
+                RatingModel p = response.body();
+
+
+                ratingDouble = p.getTotalRating();
+                //ratingString = "1";
+                // Log.v("coba","isi dari rating String " + ratingDouble);
+
+                //int ratingInt = (int) ratingDouble;
+
+                //Log.v("coba","isi dari rating String " + ratingInt);
+
+                ratingBar.setRating(ratingDouble);
+
+
+
+            }
+
+            @Override
+            public void onFailure(Call<RatingModel> call, Throwable t) {
+                // progressDialog.dismiss();
+                Toast.makeText(HalamanService.this, "Failed to load", Toast.LENGTH_LONG).show();
+
+            }
+        });
+        Log.v("coba","Isi dari idServisan " + idServisan);
+
+
+
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        getRating();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        getRating();
+    }
 }
+

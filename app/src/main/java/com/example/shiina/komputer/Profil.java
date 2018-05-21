@@ -5,6 +5,7 @@ import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
@@ -29,7 +30,9 @@ public class Profil extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+
             case android.R.id.home:
+
                 Intent parentIntent = NavUtils.getParentActivityIntent(this);
                 if (parentIntent == null) {
                     finish();
@@ -74,6 +77,9 @@ public class Profil extends AppCompatActivity {
         email = (EditText) findViewById(R.id.edit_text_email);
         // et1.setText(nama);
 
+        email.setEnabled(false);
+        email.setInputType(InputType.TYPE_NULL);
+
         //Mulai getData
 
         Retrofit.Builder builder = new Retrofit.Builder()
@@ -111,6 +117,10 @@ public class Profil extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (!validate()) {
+                    Toast.makeText(Profil.this, "Isikan data anda dengan benar"  , Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 Retrofit.Builder builder = new Retrofit.Builder()
                         .baseUrl("http://pemrograman-web.ti.ulm.ac.id/")
                         .addConverterFactory(GsonConverterFactory.create());
@@ -195,6 +205,47 @@ public class Profil extends AppCompatActivity {
 
 
     }
+    public boolean validate() {
+        boolean valid = true;
+
+        String namaUser = et1.getText().toString();
+        String nomorTelponUser = editTelepon.getText().toString();
+        String alamatUser = editAlamat.getText().toString();
+
+        //String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+.[a-z]+";
+        // String emailPattern ="^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+
+
+        if (namaUser.isEmpty() || namaUser.length() < 5) {
+            et1.setError("Nama minimal 5 character");
+            valid = false;
+        } else {
+            et1.setError(null);
+        }
+
+
+
+        if (nomorTelponUser.isEmpty() || nomorTelponUser.length() > 15) {
+            editTelepon.setError("Nomor telpon tidak boleh kosong");
+            valid = false;
+        } else {
+            editTelepon.setError(null);
+        }
+
+        if (alamatUser.isEmpty() ) {
+            editAlamat.setError("alamat tidak boleh kosong");
+            valid = false;
+        } else {
+            editAlamat.setError(null);
+        }
+
+
+
+
+        return valid;
+    }
+
+
 }
 
 
