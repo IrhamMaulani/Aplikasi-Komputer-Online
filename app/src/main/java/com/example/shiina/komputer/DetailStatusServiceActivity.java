@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.shiina.komputer.Model.Notifikasi;
+import com.example.shiina.komputer.Model.RatingModel;
 import com.example.shiina.komputer.Network.ApiClient;
 import com.example.shiina.komputer.Network.ApiInterface;
 import com.example.shiina.komputer.SharedPreference.SharedPrefManager;
@@ -40,6 +41,7 @@ public class DetailStatusServiceActivity extends AppCompatActivity {
     ProgressDialog csprogress;
     float nilairating;
     RatingBar ratingBar;
+    int nilaiRatingInt;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -128,7 +130,8 @@ public class DetailStatusServiceActivity extends AppCompatActivity {
             ratingBar.setVisibility(View.VISIBLE);
             txtStatus.setText("Barang telah selesai,Klik tombol di bawah untuk konfirmasi telah diambil Dan berikan rating (wajib)");
             txtStatus.setTextSize(10);
-            submit.setText("Diambil");
+           // submit.setText("Diambil");
+            submit.setVisibility(View.GONE);
             perubahanStatus = "DIAMBIL";
             pesanDialog = "Anda telah mengambil barang anda?";
             alasanPembatalan = "";
@@ -190,6 +193,7 @@ public class DetailStatusServiceActivity extends AppCompatActivity {
 
                // Toast.makeText(getApplicationContext(),"Rating : " + String.valueOf(rating),Toast.LENGTH_LONG).show();
                 nilairating = rating;
+                nilaiRatingInt = (int) nilairating;
 
 
             }
@@ -269,15 +273,19 @@ public class DetailStatusServiceActivity extends AppCompatActivity {
     }
 
     public void sendRatingSelesai(){
-        Call<Notifikasi> call = mApiInterface.masukanRating(nilairating,idTokoInt,nama,idServiceInt,perubahanStatus,alasanPembatalan);
+        Call<RatingModel> call = mApiInterface.masukanRating(nilairating,idTokoInt,nama,idServiceInt,perubahanStatus," ");
 
-        Log.v("cobalagi","Isi nilai rating" + nilairating);
+        Log.v("cobalagi","Isi nilai rating" + nilaiRatingInt);
         Log.v("cobalagi","Isi nilai idtoko" + idTokoInt);
         Log.v("cobalagi","Isi nilai nama" + nama);
+        Log.v("cobalagi","Isi nilai idservice" + idServiceInt);
+        Log.v("cobalagi","Isi nilai perubahan" + perubahanStatus);
+        Log.v("cobalagi","Isi nilai alasan" + alasanPembatalan);
 
-        call.enqueue(new Callback<Notifikasi>() {
+
+        call.enqueue(new Callback<RatingModel>() {
             @Override
-            public void onResponse(Call<Notifikasi> call, Response<Notifikasi> response) {
+            public void onResponse(Call<RatingModel> call, Response<RatingModel> response) {
                 Toast.makeText(DetailStatusServiceActivity.this, "" + response.body().getResponseServer(), Toast.LENGTH_SHORT).show();
 
                 finish();
@@ -287,7 +295,7 @@ public class DetailStatusServiceActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<Notifikasi> call, Throwable t) {
+            public void onFailure(Call<RatingModel> call, Throwable t) {
 
                 Toast.makeText(DetailStatusServiceActivity.this, "Terjadi Gangguan Silahkan coba lagi", Toast.LENGTH_SHORT).show();
 

@@ -48,6 +48,10 @@ public class Notifikasi {
     @Expose
     private String alasanPembatalan;
 
+    @SerializedName("userRating")
+    @Expose
+    private String userRating;
+
     public String getAlasanPembatalan() {
         return alasanPembatalan;
     }

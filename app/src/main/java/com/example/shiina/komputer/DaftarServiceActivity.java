@@ -179,9 +179,9 @@ public class DaftarServiceActivity   extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<DaftarService>> call, Throwable t) {
-                Toast.makeText(DaftarServiceActivity.this, "Terjadi Gangguan Silahkan coba lagi", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(DaftarServiceActivity.this, "Terjadi Gangguan Silahkan coba lagi", Toast.LENGTH_SHORT).show();
                 emptyView.setVisibility(View.VISIBLE);
-                emptyView.setText("Nobody But us Chicken");
+                emptyView.setText("Data kosong");
 
             }
         });

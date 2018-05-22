@@ -79,8 +79,8 @@ public interface ApiInterface {
                                            @Field("alasan_pembatalan") String alasanPembatalan);
 
     @FormUrlEncoded
-    @POST("/Kelompok13/pages/notification/statusTransaksi_batal.php")
-    Call<Notifikasi> masukanRating(@Field("userRating") float userRating,
+    @POST("/Kelompok13/pages/rating/inputRating.php")
+    Call<RatingModel> masukanRating(@Field("userRating") float userRating,
                                    @Field("idService") int idService,
                                    @Field("Username") String Username,
                                    @Field("idTransaksi") int idTransaksi,
