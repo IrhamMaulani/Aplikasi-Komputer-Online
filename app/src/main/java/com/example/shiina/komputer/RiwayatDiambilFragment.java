@@ -16,12 +16,14 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.shiina.komputer.Adapter.NotifikasiRecyclerAdapter;
 import com.example.shiina.komputer.Adapter.RiwayatAdapter;
 import com.example.shiina.komputer.Model.Notifikasi;
 import com.example.shiina.komputer.Model.Riwayat;
 import com.example.shiina.komputer.Network.ApiInterface;
 import com.example.shiina.komputer.SharedPreference.SharedPrefManager;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -44,6 +46,8 @@ public class RiwayatDiambilFragment extends Fragment {
     ProgressBar progressBar ;
     TextView emptyView;
     private String statusService ;
+    private List<Notifikasi> kontakList = new ArrayList<>();
+    private NotifikasiRecyclerAdapter viewAdapter;
 
 
     public RiwayatDiambilFragment() {
@@ -66,9 +70,11 @@ public class RiwayatDiambilFragment extends Fragment {
         SharedPrefManager sharedPrefManager = new SharedPrefManager(getContext());
         nama = sharedPrefManager.getSPNama();
 
+        viewAdapter = new NotifikasiRecyclerAdapter(getContext(), kontakList);
         mRecyclerView = (RecyclerView)rootView.findViewById(R.id.recyclerView);
         mLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setAdapter(viewAdapter);
 
         ma=getActivity();
 
@@ -116,6 +122,9 @@ public class RiwayatDiambilFragment extends Fragment {
         call.enqueue(new Callback<Riwayat>() {
             @Override
             public void onResponse(Call<Riwayat> call, Response<Riwayat> response) {
+                if(response.body() == null){
+                    emptyView.setText("Anda Tidak terkoneksi ke Internet");
+                }
                 String value = response.body().getValue();
                 progressBar.setVisibility(View.GONE);
 
@@ -146,7 +155,8 @@ public class RiwayatDiambilFragment extends Fragment {
 
             @Override
             public void onFailure(Call<Riwayat>call, Throwable t) {
-                Toast.makeText(getContext(), "error :(", Toast.LENGTH_SHORT).show();
+                progressBar.setVisibility(View.GONE);
+                emptyView.setVisibility(View.VISIBLE);
                 emptyView.setText("Anda Tidak terkoneksi ke Internet");
 
             }

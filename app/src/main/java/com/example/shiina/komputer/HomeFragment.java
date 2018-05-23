@@ -65,7 +65,7 @@ public class HomeFragment extends Fragment implements  View.OnClickListener {
         switch(v.getId())
         {
             case R.id.list_service:
-                Intent intent = new Intent(getActivity(), ListService.class);
+                Intent intent = new Intent(getActivity(), TokoServiceActivity.class);
                 getActivity().startActivity(intent);
 
                 break;

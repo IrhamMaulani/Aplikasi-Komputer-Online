@@ -107,6 +107,10 @@ public class DaftarServiceActivity   extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<DaftarService>> call, Response<List<DaftarService>> response) {
                 if (response.isSuccessful()) {
+                    if(response.body() == null){
+                        emptyView.setText("Anda Tidak terkoneksi ke Internet");
+                    }
+
                     final List<DaftarService> repos = response.body();
 
                     listView.setAdapter(new DaftarServiceAdapter(DaftarServiceActivity.this, repos));
@@ -215,5 +219,11 @@ public class DaftarServiceActivity   extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        getData();
+        super.onResume();
     }
 }

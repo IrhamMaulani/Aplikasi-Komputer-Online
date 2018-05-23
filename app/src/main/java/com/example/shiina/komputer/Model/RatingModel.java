@@ -9,9 +9,6 @@ public class RatingModel {
     @Expose
     private String idRating;
 
-    @SerializedName("userRating")
-    @Expose
-    private int userRating;
 
     @SerializedName("idService")
     @Expose
@@ -28,6 +25,26 @@ public class RatingModel {
     @SerializedName("response")
     @Expose
     private String responseServer;
+
+    @SerializedName("userRating")
+    @Expose
+    private float userRating;
+
+    @SerializedName("idTransaksi")
+    @Expose
+    private int idTransaksi;
+
+    public void setUserRating(float userRating) {
+        this.userRating = userRating;
+    }
+
+    public int getIdTransaksi() {
+        return idTransaksi;
+    }
+
+    public void setIdTransaksi(int idTransaksi) {
+        this.idTransaksi = idTransaksi;
+    }
 
     public String getResponseServer() {
         return responseServer;

@@ -74,6 +74,12 @@ public class HalamanService extends AppCompatActivity implements OnMapReadyCallb
 
         mApiInterface = ApiClient.getClient().create(ApiInterface.class);
 
+        String  idTokoService = getIntent().getStringExtra("IdTokoService");
+        namaTokoService = getIntent().getStringExtra("NamaTokoService");
+        String alamatTokoService = getIntent().getStringExtra("AlamatService");
+        String fotoToko = getIntent().getStringExtra("FotoService");
+        String waktuBukaToko = getIntent().getStringExtra("WaktuBuka");
+        float ratingToko = getIntent().getFloatExtra("Rating",1F);
 
 
 
@@ -93,16 +99,13 @@ public class HalamanService extends AppCompatActivity implements OnMapReadyCallb
         // keluhan = (EditText) findViewById(R.id.edit_text_kerusakan);
 
 
-
-         namaTokoService = array[0];
-
-            namaToko.setText(array[0]);
-            alamatToko.setText(array[1]);
-            jamBuka.setText(array[4]);
+            namaToko.setText(namaTokoService);
+            alamatToko.setText(alamatTokoService);
+            jamBuka.setText(waktuBukaToko);
            // jamBuka.setText("Open Hours " + array[2]);
 
-            String foto = array[2];
-             idService = array[3];
+            String foto = fotoToko;
+             idService = idTokoService;
             idServisan = Integer.parseInt(idService);
 
             ImageView imageView = (ImageView) findViewById(R.id.header_cover_image);
@@ -112,8 +115,9 @@ public class HalamanService extends AppCompatActivity implements OnMapReadyCallb
             //
         //awal logika rating bar
 
-        getRating();
 
+
+        ratingBar.setRating(ratingToko);
 //
 
 
@@ -159,32 +163,31 @@ public class HalamanService extends AppCompatActivity implements OnMapReadyCallb
 
     @Override
     public void onMapReady(GoogleMap map) {
-        Bundle b = this.getIntent().getExtras();
-        double [] array1 = b.getDoubleArray("koordinat");
-        if (array1 != null) {
-            double longi = array1[0];
-            double lat = array1[1];
-            Log.v("cek sasja","isi dari konsumen" +lat );
-            Log.v("cek sasja","isi dari konsumen" +longi );
+
+        double longitude = getIntent().getDoubleExtra("Longi",1.0);
+        double latitude = getIntent().getDoubleExtra("Lat",1.0);
+
+            Log.v("cek sasja","isi dari latitude" +longitude );
+            Log.v("cek sasja","isi dari longitutde" +latitude );
 
 
 
-            LatLng loc = new LatLng(lat, longi);
+            LatLng loc = new LatLng(latitude, longitude);
 
             map.addMarker(new MarkerOptions()
-                    .position(new LatLng(lat, longi))
+                    .position(new LatLng(latitude, longitude))
                     .title(namaTokoService));
             map.moveCamera(CameraUpdateFactory.newLatLng(loc));
             map.animateCamera(CameraUpdateFactory.zoomTo(map.getCameraPosition().zoom - 0.5f));
         }
-    }
+
 
 
     //over-riding back button fisik di android
     @Override
     public void onBackPressed() {
 
-        Intent intent = new Intent(getApplicationContext(), ListService.class);
+        Intent intent = new Intent(getApplicationContext(), TokoServiceActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         super.onBackPressed();
@@ -239,58 +242,7 @@ public class HalamanService extends AppCompatActivity implements OnMapReadyCallb
     }
     */
 
-    public void getRating(){
-        Retrofit.Builder builder = new Retrofit.Builder()
-                .baseUrl("http://pemrograman-web.ti.ulm.ac.id/")
-                .addConverterFactory(GsonConverterFactory.create());
-
-        Retrofit retrofit = builder.build();
-        ApiInterface client = retrofit.create(ApiInterface.class);
-        Call<RatingModel> call = client.getNilaiKomputer(idServisan);
-        call.enqueue(new Callback<RatingModel>() {
-            @Override
-            public void onResponse(Call<RatingModel> call, Response<RatingModel> response) {
-                //progressDialog.dismiss();
-                RatingModel p = response.body();
 
 
-                ratingDouble = p.getTotalRating();
-                //ratingString = "1";
-                // Log.v("coba","isi dari rating String " + ratingDouble);
-
-                //int ratingInt = (int) ratingDouble;
-
-                //Log.v("coba","isi dari rating String " + ratingInt);
-
-                ratingBar.setRating(ratingDouble);
-
-
-
-            }
-
-            @Override
-            public void onFailure(Call<RatingModel> call, Throwable t) {
-                // progressDialog.dismiss();
-                Toast.makeText(HalamanService.this, "Failed to load", Toast.LENGTH_LONG).show();
-
-            }
-        });
-        Log.v("coba","Isi dari idServisan " + idServisan);
-
-
-
-    }
-
-    @Override
-    public void onResume(){
-        super.onResume();
-        getRating();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        getRating();
-    }
 }
 

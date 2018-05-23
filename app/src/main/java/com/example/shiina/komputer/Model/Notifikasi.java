@@ -52,6 +52,34 @@ public class Notifikasi {
     @Expose
     private String userRating;
 
+    @SerializedName("Total_Rating")
+    @Expose
+    private float totalRating;
+
+    public String getUserRating() {
+        return userRating;
+    }
+
+    public void setUserRating(String userRating) {
+        this.userRating = userRating;
+    }
+
+    public void setAlasanPembatalan(String alasanPembatalan) {
+        this.alasanPembatalan = alasanPembatalan;
+    }
+
+    public float getTotalRating() {
+        return totalRating;
+    }
+
+
+
+
+
+    public void setTotalRating(float totalRating) {
+        this.totalRating = totalRating;
+    }
+
     public String getAlasanPembatalan() {
         return alasanPembatalan;
     }

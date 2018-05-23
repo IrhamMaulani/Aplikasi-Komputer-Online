@@ -3,12 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="?android:attr/listPreferredItemHeight"
     android:orientation="horizontal"
+    android:background="#FFF"
     >
 
 
 
     <ImageView
-        android:id="@+id/image"
+        android:id="@+id/image_toko"
         android:layout_width="88dp"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
@@ -34,7 +35,7 @@
             android:maxLength="25"
             android:textColor="@color/colorPrimaryDark"
             android:textAllCaps="true"
-            android:id="@+id/namatoko"/>
+            android:id="@+id/nama_toko_komputer"/>
 
         <TextView
             android:id="@+id/waktubuka"
@@ -59,7 +60,7 @@
             android:layout_weight="1"
             android:maxLength="40"
             android:textColor="@color/warnaKabur"
-            android:id="@+id/alamat"/>
+            android:id="@+id/alamat_toko"/>
 
     </LinearLayout>
 

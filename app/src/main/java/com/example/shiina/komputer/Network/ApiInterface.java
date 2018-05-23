@@ -1,8 +1,10 @@
 package com.example.shiina.komputer.Network;
 
 import com.example.shiina.komputer.Model.DaftarService;
+import com.example.shiina.komputer.Model.GetTokoServiceModel;
 import com.example.shiina.komputer.Model.Notifikasi;
 import com.example.shiina.komputer.Model.ProfilModel;
+import com.example.shiina.komputer.Model.Rating;
 import com.example.shiina.komputer.Model.RatingModel;
 import com.example.shiina.komputer.Model.Riwayat;
 import com.example.shiina.komputer.Model.TokoService;
@@ -24,9 +26,18 @@ public interface ApiInterface {
     Call<List<TokoService>> getRatingKomputer();
 
     //untuk rating nilai halaman
-    @GET("/Kelompok13/pages/rating/viewRating.php")
+
+    @GET("/Kelompok13/pages/notification/viewRating.php")
     // @GET("servicekomputer/pages/notification/viewService.php")
-    Call<RatingModel> getNilaiKomputer(@Query("idService") int idService);
+    Call<Rating> getNilaiKomputer(@Query("idTransaksi")int idTransaksi);
+
+    @GET("/Kelompok13/pages/notification/viewToko.php")
+        // @GET("servicekomputer/pages/notification/viewService.php")
+    Call<GetTokoServiceModel> getTokoKomputer();
+
+    @GET("/Kelompok13/pages/notification/viewToko.php")
+        // @GET("servicekomputer/pages/notification/viewService.php")
+    Call<GetTokoServiceModel> searchTokoKomputer(@Query("search") String pencarian);
 
 
 

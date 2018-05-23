@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,6 +53,8 @@ public class Profil extends AppCompatActivity {
     EditText editTelepon;
     EditText editAlamat;
     EditText email;
+    TextView emptyText;
+    LinearLayout containerProfil;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +72,10 @@ public class Profil extends AppCompatActivity {
         TextView textUserName = (TextView) findViewById(R.id.userName);
 
         textUserName.setText(nama);
+
+        emptyText = (TextView) findViewById(R.id.empty_view);
+
+        containerProfil = (LinearLayout) findViewById(R.id.container_profil);
 
 
         et1 = (EditText) findViewById(R.id.edit_text_nama);
@@ -95,10 +102,18 @@ public class Profil extends AppCompatActivity {
                 //progressDialog.dismiss();
                 ProfilModel p = response.body();
 
-                et1.setText(p.getNamaUser());
-                editTelepon.setText(p.getNamaTelpon());
-                editAlamat.setText(p.getAlamatUser());
-                email.setText(p.getEmail());
+                if(p == null){
+                    et1.setText(" ");
+                    editTelepon.setText("  ");
+                    editAlamat.setText(" ");
+                    email.setText("  ");
+                }
+                else {
+                    et1.setText(p.getNamaUser());
+                    editTelepon.setText(p.getNamaTelpon());
+                    editAlamat.setText(p.getAlamatUser());
+                    email.setText(p.getEmail());
+                }
 
 
             }
@@ -142,7 +157,8 @@ public class Profil extends AppCompatActivity {
                     @Override
                     public void onFailure(Call<ProfilModel> call, Throwable t) {
 
-                        Toast.makeText(Profil.this, "Gagal memasukkan Data :(", Toast.LENGTH_SHORT).show();
+                        containerProfil.setVisibility(View.GONE);
+                        emptyText.setVisibility(View.VISIBLE);
 
                     }
                 });

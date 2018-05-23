@@ -76,6 +76,13 @@
         <activity android:name=".DaftarServiceActivity" />
         <activity android:name=".DetailStatusServiceActivity" />
         <activity android:name=".CobaPlaceMapsActivity"></activity>
+        <activity
+            android:name=".TokoServiceActivity"
+            android:label="Toko Service">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.shiina.komputer.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

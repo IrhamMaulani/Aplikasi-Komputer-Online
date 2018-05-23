@@ -21,6 +21,7 @@ import com.example.shiina.komputer.Network.ApiClient;
 import com.example.shiina.komputer.Network.ApiInterface;
 import com.example.shiina.komputer.SharedPreference.SharedPrefManager;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -42,6 +43,8 @@ public class StatusFragment extends Fragment {
     ApiInterface mApiInterface;
     TextView emptyView;
     ProgressBar progressBar;
+    private List<Notifikasi> kontakList = new ArrayList<>();
+    private NotifikasiRecyclerAdapter viewAdapter;
 
     public StatusFragment() {
         // Required empty public constructor
@@ -85,12 +88,13 @@ public class StatusFragment extends Fragment {
                 },2000); //4000 millisecond = 4 detik
             }
         });
+        viewAdapter = new NotifikasiRecyclerAdapter(getContext(), kontakList);
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerView);
         mLayoutManager = new LinearLayoutManager(getContext());
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mApiInterface = ApiClient.getClient().create(ApiInterface.class);
-
+        mRecyclerView.setAdapter(viewAdapter);
         ma=this;
         refreshData();
 
@@ -121,6 +125,9 @@ public class StatusFragment extends Fragment {
         call.enqueue(new Callback<Riwayat>() {
             @Override
             public void onResponse(Call<Riwayat> call, Response<Riwayat> response) {
+                if(response.body() == null){
+                    emptyView.setText("Anda Tidak terkoneksi ke Internet");
+                }
                 String value = response.body().getValue();
                 progressBar.setVisibility(View.GONE);
 
@@ -157,7 +164,7 @@ public class StatusFragment extends Fragment {
 
             @Override
             public void onFailure(Call<Riwayat>call, Throwable t) {
-                Toast.makeText(getContext(), "error :(", Toast.LENGTH_SHORT).show();
+                progressBar.setVisibility(View.GONE);
                 mRecyclerView.setVisibility(View.GONE);
                 emptyView.setVisibility(View.VISIBLE);
                 emptyView.setText("Anda Tidak terkoneksi ke Internet");

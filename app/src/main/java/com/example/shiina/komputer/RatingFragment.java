@@ -174,4 +174,9 @@ public class RatingFragment extends Fragment {
         });
     }
 
+    @Override
+    public void onDestroyView() {
+
+        super.onDestroyView();
+    }
 }

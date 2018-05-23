@@ -32,7 +32,7 @@ public class ServiceAdapter extends ArrayAdapter<Service> {
         Service currentWord = getItem(position);
 
         // Find the TextView in the list_item.xml layout with the ID miwok_text_view.
-        TextView namaTokoTextView = (TextView) listItemView.findViewById(R.id.namatoko);
+        TextView namaTokoTextView = (TextView) listItemView.findViewById(R.id.nama_toko_komputer);
         // Get the Miwok translation from the currentWord object and set this text on
         // the Miwok TextView.
         namaTokoTextView.setText(currentWord.getNamaToko());

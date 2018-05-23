@@ -27,7 +27,9 @@ public class NotifikasiRecyclerAdapter extends RecyclerView.Adapter<NotifikasiRe
         mKontakList = KontakList;
     }
 
-    public NotifikasiRecyclerAdapter(Activity context) {
+    public NotifikasiRecyclerAdapter(Context context,List <Notifikasi> results) {
+        this.context = context;
+        mKontakList = results;
 
     }
 

@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -20,28 +21,35 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.shiina.komputer.Model.Notifikasi;
+import com.example.shiina.komputer.Model.Rating;
 import com.example.shiina.komputer.Model.RatingModel;
 import com.example.shiina.komputer.Network.ApiClient;
 import com.example.shiina.komputer.Network.ApiInterface;
 import com.example.shiina.komputer.SharedPreference.SharedPrefManager;
 import com.squareup.picasso.Picasso;
 
+
 import org.w3c.dom.Text;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class DetailStatusServiceActivity extends AppCompatActivity {
 
-    String idService,alamatToko,namaKerusakan,fotoService,namaToko,validasi,perubahanStatus,pesanDialog,alasanPembatalan,nama,idToko;
+    String idService,alamatToko,namaKerusakan,fotoService,namaToko,validasi,perubahanStatus,pesanDialog,alasanPembatalan,nama,idToko,pembatalanString;
     Button submit,diambil ;
+    float ratingDouble;
     int idServiceInt,idTokoInt;
     ApiInterface mApiInterface;
     ProgressDialog csprogress;
-    float nilairating;
+    float nilairating,totalRating;
     RatingBar ratingBar;
     int nilaiRatingInt;
+    EditText keluhanText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,13 +66,12 @@ public class DetailStatusServiceActivity extends AppCompatActivity {
         fotoService = getIntent().getStringExtra("FotoService");
         namaToko = getIntent().getStringExtra("NamaToko");
         validasi =  getIntent().getStringExtra("Boleh");
+        pembatalanString =  getIntent().getStringExtra("AlasanPembatalan");
+        totalRating = getIntent().getFloatExtra("Rating",1F);
         LinearLayout containerBatal = (LinearLayout) findViewById(R.id.container_untuk_status);
         idTokoInt = Integer.parseInt(idToko);
         idServiceInt = Integer.parseInt(idService);
         csprogress=new ProgressDialog(DetailStatusServiceActivity.this);
-
-
-        Log.v("Coba","Isi dari variabel validasi : " + validasi);
 
         TextView txtNamaToko = (TextView) findViewById(R.id.txt_for_namatoko);
         txtNamaToko.setText(namaToko);
@@ -74,6 +81,11 @@ public class DetailStatusServiceActivity extends AppCompatActivity {
 
         TextView txtNamaService = (TextView) findViewById(R.id.txt_for_service);
         txtNamaService.setText(namaKerusakan);
+
+
+        keluhanText = findViewById(R.id.alasan_txt);
+        alasanPembatalan = keluhanText.getText().toString();
+
 
         ImageView imgFotoService = (ImageView) findViewById(R.id.foto_toko_service);
 
@@ -85,12 +97,11 @@ public class DetailStatusServiceActivity extends AppCompatActivity {
 
         TextView txtStatus = (TextView) findViewById(R.id.txt_pemberitahuan);
         ratingBar = (RatingBar)findViewById(R.id.ratingBar);
+        RadioButton radioButton = findViewById(R.id.checkbox_4);
+        keluhanText = findViewById(R.id.alasan_txt);
 
-        //check box
-        RadioButton checkBox1 = (RadioButton) findViewById(R.id.checkbox_1);
-        RadioButton checkBox2 = (RadioButton) findViewById(R.id.checkbox_2);
-        RadioButton checkBox3 = (RadioButton) findViewById(R.id.checkbox_3);
-        RadioButton checkBox4 = (RadioButton) findViewById(R.id.checkbox_4);
+        keluhanText.setVisibility(View.GONE);
+
 
         RadioGroup radioGroup = (RadioGroup) findViewById(R.id.RGroup);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -100,21 +111,27 @@ public class DetailStatusServiceActivity extends AppCompatActivity {
                 // find which radio button is selected
                 if(checkedId == R.id.checkbox_1) {
                     alasanPembatalan =  "Respon Terlalu lama" ;
+                    keluhanText.setVisibility(View.GONE);
+
                 } else if(checkedId == R.id.checkbox_2) {
                     alasanPembatalan =  "Komputer Normal" ;
+                    keluhanText.setVisibility(View.GONE);
+
                 } else if(checkedId == R.id.checkbox_3){
                     alasanPembatalan =  "Sudah ke tempat service lain" ;
+                    keluhanText.setVisibility(View.GONE);
+
                 } else if(checkedId == R.id.checkbox_4){
-                    alasanPembatalan =  "Lainnya" ;
+                    keluhanText.setVisibility(View.VISIBLE);
+
+
                 }
             }
 
         });
 
 
-
-        //end check box
-
+        Log.v("tag isi","isi dari alasan pembatalan" + alasanPembatalan);
 
 
         if(validasi.equals("0")){
@@ -128,7 +145,7 @@ public class DetailStatusServiceActivity extends AppCompatActivity {
             containerBatal.setVisibility(View.GONE);
             txtStatus.setVisibility(View.VISIBLE);
             ratingBar.setVisibility(View.VISIBLE);
-            txtStatus.setText("Barang telah selesai,Klik tombol di bawah untuk konfirmasi telah diambil Dan berikan rating (wajib)");
+            txtStatus.setText("Barang telah selesai,Klik tombol di bawah untuk konfirmasi telah diambil Dan berikan rating ");
             txtStatus.setTextSize(10);
            // submit.setText("Diambil");
             submit.setVisibility(View.GONE);
@@ -139,11 +156,32 @@ public class DetailStatusServiceActivity extends AppCompatActivity {
 
 
         }
-        else{
+        else if(validasi.equals("1")){
             perubahanStatus = "DIBATALKAN";
             pesanDialog = "Apakah Anda ingin Membatalkan Pesanan Ini?";
+            alasanPembatalan = keluhanText.getText().toString();
 
         }
+        else if(validasi.equals("3")){
+            containerBatal.setVisibility(View.GONE);
+            txtStatus.setVisibility(View.VISIBLE);
+            txtStatus.setText("Anda Memberikan rating");
+            submit.setVisibility(View.GONE);
+            ratingBar.setVisibility(View.VISIBLE);
+            getRating();
+           // ratingBar.setRating(totalRating);
+            ratingBar.setIsIndicator(true);
+
+        }
+        else if(validasi.equals("4")){
+            containerBatal.setVisibility(View.GONE);
+            txtStatus.setVisibility(View.VISIBLE);
+            txtStatus.setText("Alasan Pembatalan : " + pembatalanString);
+            submit.setVisibility(View.GONE);
+
+        }
+
+
 
 
         submit.setOnClickListener(new View.OnClickListener() {
@@ -166,7 +204,8 @@ public class DetailStatusServiceActivity extends AppCompatActivity {
                                     public void run() {
                                         csprogress.dismiss();
 //whatever you want just you have to launch overhere.
-
+                                        alasanPembatalan = keluhanText.getText().toString();
+                                        Log.v("tag isi","isi dari alasan pembatalan" + alasanPembatalan);
                                         sendData();
 
 
@@ -248,6 +287,49 @@ public class DetailStatusServiceActivity extends AppCompatActivity {
 
     }
 
+    public void getRating (){
+        Call<Rating> call = mApiInterface.getNilaiKomputer(idServiceInt);
+        call.enqueue(new Callback<Rating>() {
+            @Override
+            public void onResponse(Call<Rating> call, Response<Rating> response) {
+                //progressDialog.dismiss();
+
+
+
+                Rating p = response.body();
+
+
+                String RatingString = null;
+                if (p != null) {
+                    RatingString = p.getUserRating();
+                }
+                else{
+                    RatingString = "1";
+                }
+                float ratingDouble = Float.valueOf(RatingString);
+
+                Log.v("Tag","isi dari response body " + response.body());
+                Log.v("Tag","isi dari idtransaksi tertutp" + idServiceInt);
+                Log.v("Tag","isi dari Rating tertutup" + RatingString);
+
+
+
+                ratingBar.setRating(ratingDouble);
+
+
+
+            }
+
+            @Override
+            public void onFailure(Call<Rating> call, Throwable t) {
+                // progressDialog.dismiss();
+                Toast.makeText(DetailStatusServiceActivity.this, "Failed to load", Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+    }
+
     public void sendData(){
         Call<Notifikasi> call = mApiInterface.UpdateStatusTransaksi(idServiceInt,perubahanStatus,alasanPembatalan);
 
@@ -303,4 +385,7 @@ public class DetailStatusServiceActivity extends AppCompatActivity {
         });
 
     }
+
+
+
 }

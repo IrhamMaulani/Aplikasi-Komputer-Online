@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -145,18 +146,28 @@ public class ProfilFragment extends Fragment implements  View.OnClickListener {
             @Override
             public void onResponse(Call<ProfilModel> call, Response<ProfilModel> response) {
                 //progressDialog.dismiss();
-                ProfilModel p = response.body();
 
-                userName.setText(p.getNamaUser());
-                userTelepon.setText(p.getNamaTelpon());
-                userAlamat.setText(p.getAlamatUser());
+
+                ProfilModel p = response.body();
+                Log.v("Tag","isi dari response body profil"+ response.body());
+
+                if(p == null){
+                    userName.setText("");
+                    userTelepon.setText("");
+                    userAlamat.setText("");
+                }
+                else {
+                    userName.setText(p.getNamaUser());
+                    userTelepon.setText(p.getNamaTelpon());
+                    userAlamat.setText(p.getAlamatUser());
+                }
 
             }
 
             @Override
             public void onFailure(Call<ProfilModel> call, Throwable t) {
                 // progressDialog.dismiss();
-                Toast.makeText(getActivity(), "Failed to load", Toast.LENGTH_LONG).show();
+               // Toast.makeText(getActivity(), "Failed to load", Toast.LENGTH_LONG).show();
             }
         });
 
