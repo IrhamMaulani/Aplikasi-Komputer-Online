@@ -66,7 +66,8 @@ public interface ApiInterface {
     @POST("/Kelompok13/pages/notification/orderService.php")
     Call<ProfilModel> orderService(@Field("Username") String userName,
                                    @Field("idService") int idService,
-                                   @Field("Kerusakan") String kerusakan);
+                                   @Field("Kerusakan") String kerusakan,
+                                   @Field("hargaService") double hargaService);
 
     @GET("/Kelompok13/pages/notification/viewpemberitahuan.php")
         // @GET("servicekomputer/pages/notification/viewService.php")
@@ -76,6 +77,12 @@ public interface ApiInterface {
         // @GET("servicekomputer/pages/notification/viewService.php")
     Call<Riwayat> getRiwayat(@Query("Username") String userName,
                              @Query("statusTransaksi") String statusTransaksi);
+
+    @FormUrlEncoded
+    @POST("/Kelompok13/pages/notification/prosesPengiriman.php")
+    Call<Notifikasi> updateProsesPengiriman(@Field("idTransaksi") int idService,
+                                     @Field("prosesPengiriman") String prosesPengiriman,
+                                     @Field("hargaDelivery") double hargaDelivery);
 
     @FormUrlEncoded
     @POST("/Kelompok13/pages/user/registrasi.php")

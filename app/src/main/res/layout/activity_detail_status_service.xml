@@ -59,6 +59,11 @@
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
                 android:text="Service yang di pesan : Install ulang windows"/>
+            <TextView
+                android:id="@+id/txt_for_harga"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Harga yang di Bayar : 20000"/>
 
 
         </LinearLayout>
@@ -96,6 +101,7 @@
         android:orientation="vertical">
 
     <TextView
+        android:id="@+id/txt_keterangan_radio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
@@ -111,6 +117,7 @@
         android:id="@+id/checkbox_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:checked="true"
         android:text="Terlalu lama Respon"
         />
     <RadioButton
@@ -142,6 +149,13 @@
             android:layout_height="wrap_content"
             android:hint="Masukan alasan anda"
             android:textSize="12sp"/>
+        <TextView
+            android:id="@+id/text_harga_ongkir"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:visibility="gone"
+            android:text="Ongkos Kirim : 20.000"/>
         <Button
             android:id="@+id/btn_for_submit"
             android:layout_width="wrap_content"
@@ -161,6 +175,15 @@
         android:layout_gravity="right"
         android:visibility="gone"
         android:text="Diambil"/>
+
+    <Button
+        android:id="@+id/btn_for_delivery"
+        android:layout_width="wrap_content"
+        android:layout_margin="16dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:visibility="gone"
+        android:text="SUBMIT"/>
 
 
 

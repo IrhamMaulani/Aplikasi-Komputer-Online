@@ -36,6 +36,7 @@ public class DaftarServiceActivity   extends AppCompatActivity {
     private SwipeRefreshLayout SwipeRefresh;
     private String namaUser;
     private int idTokoService;
+    private double hargaService;
     private ProgressDialog csprogress;
     TextView emptyView;
 
@@ -121,6 +122,7 @@ public class DaftarServiceActivity   extends AppCompatActivity {
                             final DaftarService daftarService = repos.get(position);
 
                            Log.v("Coba","isi dari daftar Servicer" + daftarService.getNamaService());
+                           hargaService = daftarService.getHargaService();
 
 
 
@@ -185,7 +187,8 @@ public class DaftarServiceActivity   extends AppCompatActivity {
             public void onFailure(Call<List<DaftarService>> call, Throwable t) {
                // Toast.makeText(DaftarServiceActivity.this, "Terjadi Gangguan Silahkan coba lagi", Toast.LENGTH_SHORT).show();
                 emptyView.setVisibility(View.VISIBLE);
-                emptyView.setText("Data kosong");
+                emptyView.setText("Empty Here!");
+                listView.setVisibility(View.GONE);
 
             }
         });
@@ -199,7 +202,7 @@ public class DaftarServiceActivity   extends AppCompatActivity {
 
         Retrofit retrofit = builder.build();
         ApiInterface client = retrofit.create(ApiInterface.class);
-        Call<ProfilModel> call = client.orderService(namaUser,idTokoService,namaService);
+        Call<ProfilModel> call = client.orderService(namaUser,idTokoService,namaService,hargaService);
 
         call.enqueue(new Callback<ProfilModel>() {
             @Override

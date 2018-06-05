@@ -56,6 +56,22 @@ public class Notifikasi {
     @Expose
     private float totalRating;
 
+    @SerializedName("totalHarga")
+    @Expose
+    private String totalHarga;
+
+    @SerializedName("prosesPengiriman")
+    @Expose
+    private String prosesPengiriman;
+
+    public String getTotalHarga() {
+        return totalHarga;
+    }
+
+    public void setTotalHarga(String totalHarga) {
+        this.totalHarga = totalHarga;
+    }
+
     public String getUserRating() {
         return userRating;
     }
@@ -73,8 +89,13 @@ public class Notifikasi {
     }
 
 
+    public String getProsesPengiriman() {
+        return prosesPengiriman;
+    }
 
-
+    public void setProsesPengiriman(String prosesPengiriman) {
+        this.prosesPengiriman = prosesPengiriman;
+    }
 
     public void setTotalRating(float totalRating) {
         this.totalRating = totalRating;

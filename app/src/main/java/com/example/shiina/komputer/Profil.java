@@ -121,7 +121,9 @@ public class Profil extends AppCompatActivity {
             @Override
             public void onFailure(Call<ProfilModel> call, Throwable t) {
                 // progressDialog.dismiss();
-                Toast.makeText(Profil.this, "Failed to load", Toast.LENGTH_LONG).show();
+                containerProfil.setVisibility(View.GONE);
+                emptyText.setVisibility(View.VISIBLE);
+                emptyText.setText("Anda Tidak Terkoneksi ke Internet");
             }
         });
 
@@ -157,8 +159,8 @@ public class Profil extends AppCompatActivity {
                     @Override
                     public void onFailure(Call<ProfilModel> call, Throwable t) {
 
-                        containerProfil.setVisibility(View.GONE);
-                        emptyText.setVisibility(View.VISIBLE);
+                        Toast.makeText(Profil.this, "Data gagal di ubah", Toast.LENGTH_LONG).show();
+
 
                     }
                 });

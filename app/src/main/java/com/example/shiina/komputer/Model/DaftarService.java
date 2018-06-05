@@ -15,7 +15,7 @@ public class DaftarService {
 
     @SerializedName("harga_service")
     @Expose
-    private String hargaService;
+    private double hargaService;
 
     public String getIdNamaService() {
         return idNamaService;
@@ -25,7 +25,7 @@ public class DaftarService {
         return namaService;
     }
 
-    public String getHargaService() {
+    public double getHargaService() {
         return hargaService;
     }
 
@@ -37,7 +37,7 @@ public class DaftarService {
         this.namaService = namaService;
     }
 
-    public void setHargaService(String hargaService) {
+    public void setHargaService(double hargaService) {
         this.hargaService = hargaService;
     }
 }

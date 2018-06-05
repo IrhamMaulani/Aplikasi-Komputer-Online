@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,6 +58,8 @@ public class NotifikasiRecyclerAdapter extends RecyclerView.Adapter<NotifikasiRe
                     mIntent.putExtra("Alamat", mKontakList.get(position).getAlamatToko());
                     mIntent.putExtra("NamaService", mKontakList.get(position).getKerusakan());
                     mIntent.putExtra("FotoService", mKontakList.get(position).getFotoToko());
+                    mIntent.putExtra("totalHarga", mKontakList.get(position).getTotalHarga());
+                    Log.v("coba","Isi dari total harga"+mKontakList.get(position).getTotalHarga());
 
                     if(mKontakList.get(position).getStatusTransaksi().equals("Menunggu")){
 
@@ -64,6 +67,14 @@ public class NotifikasiRecyclerAdapter extends RecyclerView.Adapter<NotifikasiRe
                     }
                     else if(mKontakList.get(position).getStatusTransaksi().equals("ON-PROSES")){
                         mIntent.putExtra("Boleh", "0");
+                        if(mKontakList.get(position).getProsesPengiriman().equals("kosong")){
+                            mIntent.putExtra("pengiriman", "kosong");
+                        }
+                        else {
+                            mIntent.putExtra("pengiriman", "terisi");
+                            mIntent.putExtra("prosesPengiriman", mKontakList.get(position).getProsesPengiriman());
+                        }
+
                     }
                     else{
                         mIntent.putExtra("Boleh", "2");

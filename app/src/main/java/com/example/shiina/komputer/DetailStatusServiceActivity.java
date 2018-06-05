@@ -39,8 +39,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class DetailStatusServiceActivity extends AppCompatActivity {
 
-    String idService,alamatToko,namaKerusakan,fotoService,namaToko,validasi,perubahanStatus,pesanDialog,alasanPembatalan,nama,idToko,pembatalanString;
-    Button submit,diambil ;
+    String idService,alamatToko,namaKerusakan,fotoService,namaToko,validasi,perubahanStatus,pesanDialog,alasanPembatalan,nama,idToko,pembatalanString,prosesPengiriman,pesanOngkir;
+    String statusPengiriman,totalHarga;
+    Button submit,diambil ,deliveryButton;
     float ratingDouble;
     int idServiceInt,idTokoInt;
     ApiInterface mApiInterface;
@@ -48,7 +49,9 @@ public class DetailStatusServiceActivity extends AppCompatActivity {
     float nilairating,totalRating;
     RatingBar ratingBar;
     int nilaiRatingInt;
+    double hargaOngkir;
     EditText keluhanText;
+    RadioButton radioButton1,radioButton2,radioButton3,radioButton4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +71,10 @@ public class DetailStatusServiceActivity extends AppCompatActivity {
         validasi =  getIntent().getStringExtra("Boleh");
         pembatalanString =  getIntent().getStringExtra("AlasanPembatalan");
         totalRating = getIntent().getFloatExtra("Rating",1F);
+        totalHarga = getIntent().getStringExtra("totalHarga");
+        String detailProsesPengiriman = getIntent().getStringExtra("prosesPengiriman");
+        Log.v("isi","isi dari totalHarga"+ totalHarga);
+        statusPengiriman = getIntent().getStringExtra("pengiriman");
         LinearLayout containerBatal = (LinearLayout) findViewById(R.id.container_untuk_status);
         idTokoInt = Integer.parseInt(idToko);
         idServiceInt = Integer.parseInt(idService);
@@ -83,24 +90,47 @@ public class DetailStatusServiceActivity extends AppCompatActivity {
         txtNamaService.setText(namaKerusakan);
 
 
+        final TextView txtHargaOngkir = (TextView) findViewById(R.id.text_harga_ongkir);
+
+
+
         keluhanText = findViewById(R.id.alasan_txt);
         alasanPembatalan = keluhanText.getText().toString();
 
 
         ImageView imgFotoService = (ImageView) findViewById(R.id.foto_toko_service);
+        Log.v("coba","isi dari foto " +fotoService);
 
         Picasso.with(DetailStatusServiceActivity.this).load(fotoService).into(imgFotoService);
 
         submit = (Button) findViewById(R.id.btn_for_submit);
         diambil = (Button)findViewById(R.id.btn_for_selesai);
+        deliveryButton = (Button)findViewById(R.id.btn_for_delivery);
+
         mApiInterface = ApiClient.getClient().create(ApiInterface.class);
 
         TextView txtStatus = (TextView) findViewById(R.id.txt_pemberitahuan);
         ratingBar = (RatingBar)findViewById(R.id.ratingBar);
-        RadioButton radioButton = findViewById(R.id.checkbox_4);
+
+        TextView txtHarga = (TextView) findViewById(R.id.txt_for_harga);
+        txtHarga.setText("Total Harga yang anda Pesan = Rp."+totalHarga);
+
+        TextView txtKeterangan = (TextView) findViewById(R.id.txt_pemberitahuan);
+        txtKeterangan.setText("PESANAN ANDA SEDANG DI PROSES");
+
+        TextView txtKeteranganRadio = (TextView) findViewById(R.id.txt_keterangan_radio);
+
+
+        radioButton1 = findViewById(R.id.checkbox_1);
+        radioButton2 = findViewById(R.id.checkbox_2);
+        radioButton3 = findViewById(R.id.checkbox_3);
+        radioButton4 = findViewById(R.id.checkbox_4);
+
+
         keluhanText = findViewById(R.id.alasan_txt);
 
         keluhanText.setVisibility(View.GONE);
+
 
 
         RadioGroup radioGroup = (RadioGroup) findViewById(R.id.RGroup);
@@ -135,10 +165,42 @@ public class DetailStatusServiceActivity extends AppCompatActivity {
 
 
         if(validasi.equals("0")){
-            containerBatal.setVisibility(View.GONE);
+            //containerBatal.setVisibility(View.GONE);
+            radioButton3.setVisibility(View.GONE);
+            radioButton4.setVisibility(View.GONE);
+            txtKeteranganRadio.setText(" Pilih Opsi Pengiriman");
+            radioButton1.setText("Ambil Sendiri");
+            radioButton2.setText("Delivery");
             txtStatus.setVisibility(View.VISIBLE);
             submit.setVisibility(View.GONE);
             alasanPembatalan = "";
+            deliveryButton.setVisibility(View.VISIBLE);
+            pesanOngkir = "Anda akan Mengambil sendiri?";
+
+            radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+                @Override
+                public void onCheckedChanged(RadioGroup group, int checkedId) {
+                    // find which radio button is selected
+                    if (checkedId == R.id.checkbox_1) {
+                        txtHargaOngkir.setVisibility(View.GONE);
+                        pesanOngkir = "Anda akan Mengambil sendiri?";
+
+                    } else if (checkedId == R.id.checkbox_2) {
+                        txtHargaOngkir.setVisibility(View.VISIBLE);
+                        pesanOngkir = "Anda Akan di kenai biaya tambahan sebesar Rp.30.000";
+                    }
+                }
+            });
+
+            if(statusPengiriman.equals("kosong")){
+            }
+            else{
+                containerBatal.setVisibility(View.GONE);
+                deliveryButton.setVisibility(View.GONE);
+                String txtBuruBuru = "PESANAN ANDA SEDANG DI PROSES \n" + detailProsesPengiriman;
+                txtKeterangan.setText(txtBuruBuru);
+            }
 
         }
         else if(validasi.equals("2")){
@@ -159,7 +221,7 @@ public class DetailStatusServiceActivity extends AppCompatActivity {
         else if(validasi.equals("1")){
             perubahanStatus = "DIBATALKAN";
             pesanDialog = "Apakah Anda ingin Membatalkan Pesanan Ini?";
-            alasanPembatalan = keluhanText.getText().toString();
+          //  alasanPembatalan = keluhanText.getText().toString();
 
         }
         else if(validasi.equals("3")){
@@ -204,7 +266,10 @@ public class DetailStatusServiceActivity extends AppCompatActivity {
                                     public void run() {
                                         csprogress.dismiss();
 //whatever you want just you have to launch overhere.
-                                        alasanPembatalan = keluhanText.getText().toString();
+                                        if(radioButton4.isChecked()){
+                                            alasanPembatalan = keluhanText.getText().toString();
+                                        }
+
                                         Log.v("tag isi","isi dari alasan pembatalan" + alasanPembatalan);
                                         sendData();
 
@@ -281,6 +346,57 @@ public class DetailStatusServiceActivity extends AppCompatActivity {
         });
 
 
+        deliveryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder alert = new AlertDialog.Builder(DetailStatusServiceActivity.this);
+                alert.setCancelable(true);
+                alert.setMessage(pesanOngkir);
+                alert.setPositiveButton("Confirm",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                //isi
+
+                                csprogress.setMessage("Loading...");
+                                csprogress.show();
+                                new Handler().postDelayed(new Runnable() {
+
+                                    @Override
+                                    public void run() {
+                                        csprogress.dismiss();
+//whatever you want just you have to launch overhere.
+
+                                       if(radioButton1.isChecked()){
+                                           prosesPengiriman = "ambil sendiri";
+                                           hargaOngkir = 0;
+
+                                       }
+                                       else if(radioButton2.isChecked()){
+                                           prosesPengiriman = "Delivery";
+                                           hargaOngkir = 30000;
+
+                                       }
+                                       sendOngkir();
+
+
+                                    }
+                                }, 1000);
+
+                            }
+
+                        });
+                alert.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //Toast.makeText(HalamanService.this, "SA :(", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                AlertDialog dialog = alert.create();
+                dialog.show();
+
+            }
+        });
 
 
 
@@ -385,6 +501,34 @@ public class DetailStatusServiceActivity extends AppCompatActivity {
         });
 
     }
+
+    public void sendOngkir(){
+        Call<Notifikasi> call = mApiInterface.updateProsesPengiriman(idServiceInt,prosesPengiriman,hargaOngkir);
+        Log.v("isi","isi dari idservice" +idServiceInt);
+        Log.v("isi","isi dari proses Pengiriman" +prosesPengiriman);
+        Log.v("isi","isi dari idservice" +hargaOngkir);
+
+        call.enqueue(new Callback<Notifikasi>() {
+            @Override
+            public void onResponse(Call<Notifikasi> call, Response<Notifikasi> response) {
+                Toast.makeText(DetailStatusServiceActivity.this, "" + response.body().getResponseServer(), Toast.LENGTH_SHORT).show();
+
+                finish();
+
+
+
+            }
+
+            @Override
+            public void onFailure(Call<Notifikasi> call, Throwable t) {
+
+                Toast.makeText(DetailStatusServiceActivity.this, "Terjadi Gangguan Silahkan coba lagi", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+    }
+
 
 
 
